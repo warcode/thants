@@ -47,6 +47,8 @@ body {
 	flex-direction: row;
 	height: 100vh;
 	max-height: 100%;
+	width: 100vw;
+	max-width: 100%;
 }
 
 .menuleft {
@@ -57,7 +59,7 @@ body {
 	flex-direction: column;
 	height: 100vh;
 	max-height: 100%;
-	width: 2vw;
+	width: 4vw;
 	overflow-x: hidden;
 }
 
@@ -74,6 +76,8 @@ body {
 	flex-direction: column;
 	height: 100vh;
 	max-height: 100%;
+	width: 96vw;
+	max-width: 100%;
 }
 
 .header {
