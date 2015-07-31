@@ -29,7 +29,7 @@
 <template name="menuleft">
     <div class="menuleft">
         {{#each channelList}}
-            <div class="channel">{{this}}</div>
+            <div class="{{activeChannel}}" data-channel="{{this}}">#{{this}}</div>
         {{/each}}
     </div>
 </template>

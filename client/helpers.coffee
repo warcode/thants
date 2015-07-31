@@ -34,16 +34,29 @@ Template.message.helpers
 Template.header.helpers
 	channelTopic: ->
 		channel = Session.get 'channel'
-		Channels.findOne({_id : channel}).topic
+		instance = Channels.findOne({_id : channel})
+		if instance?
+			instance.topic
 
 	channelCount: ->
 		channel = Session.get 'channel'
-		Channels.findOne({_id : channel}).members.length
+		instance = Channels.findOne({_id : channel})
+		if instance?
+			instance.members.length
 
 	channelWho: ->
 		channel = Session.get 'channel'
-		Channels.findOne({_id : channel}).who.join()
+		instance = Channels.findOne({_id : channel})
+		if instance?
+			instance.who.join()
 
 Template.menuleft.helpers
 	channelList: ->
 		Meteor.user().profile.channels
+
+	activeChannel: ->
+		channel = Session.get 'channel'
+		console.log(this)
+		if this.toString() is channel.toString()
+			return "channel active"
+		return "channel"

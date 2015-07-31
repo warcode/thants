@@ -27,6 +27,13 @@ Template.inputarea.events
 			
 			InputHandler.newInput input, channel, messageText
 
+Template.menuleft.events
+	'click .menuleft .channel': (event) ->
+		clicked = $(event.currentTarget)
+		channel = '/chan/' + clicked.attr('data-channel')
+		console.log(channel)
+		FlowRouter.go channel
+
 
 Template.message.onRendered ->
 	element = this.find('.message')
