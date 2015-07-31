@@ -32,3 +32,7 @@ Template.header.helpers
 	channelTopic: ->
 		channel = Session.get 'channel'
 		Channels.findOne({_id : channel})
+
+	channelCount: ->
+		channel = Session.get 'channel'
+		Channels.findOne({_id : channel}).members.length

@@ -35,7 +35,7 @@
 <template name="header">
     <div class="header">
     {{#if inChannel}}
-        <span>#{{channelName}}</span><span>&nbsp;[1]</span><span> &nbsp; {{channelTopic.topic}}</span><span> &nbsp; {{currentUser._id}}</span>
+        <span>#{{channelName}}</span><span>&nbsp;[{{channelCount}}]</span><span> &nbsp; {{channelTopic.topic}}</span><span> &nbsp; {{currentUser._id}}</span>
     {{/if}}
     </div>
 </template>
