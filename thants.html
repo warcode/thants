@@ -28,14 +28,16 @@
 
 <template name="menuleft">
     <div class="menuleft">
-    
+        {{#each channelList}}
+            <div class="channel">{{this}}</div>
+        {{/each}}
     </div>
 </template>
 
 <template name="header">
     <div class="header">
     {{#if inChannel}}
-        <span>#{{channelName}}</span><span>&nbsp;[{{channelCount}}]</span><span> &nbsp; {{channelTopic}}</span><span> &nbsp; {{currentUser._id}}</span>
+        <span>#{{channelName}}</span><span>&nbsp;[{{channelCount}}]</span><span> &nbsp; {{channelTopic}}</span><span> &nbsp; {{channelWho}}</span>
     {{/if}}
     </div>
 </template>
@@ -89,7 +91,7 @@
 <template name="message">
 <div class="message" data-user="{{user}}" data-time="{{formatTimestamp}}">
     <div class="avatar-wrapper">
-        <div class="avatar" style="background-image:url(https://cdn.dogomedia.com/system/ckeditor_assets/pictures/517187091860e02ff5002401/content_fire-ants.jpg);">
+        <div class="avatar" style="background-image:url({{avatar}});">
         </div>
     </div>
     <div class="message-wrapper">

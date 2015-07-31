@@ -28,6 +28,9 @@ Template.message.helpers
 			return "user ants"
 		return "user"
 
+	avatar: ->
+		return "#{Meteor.absoluteUrl()}avatar/#{this.user.toLowerCase()}.png"
+
 Template.header.helpers
 	channelTopic: ->
 		channel = Session.get 'channel'
@@ -36,3 +39,11 @@ Template.header.helpers
 	channelCount: ->
 		channel = Session.get 'channel'
 		Channels.findOne({_id : channel}).members.length
+
+	channelWho: ->
+		channel = Session.get 'channel'
+		Channels.findOne({_id : channel}).who.join()
+
+Template.menuleft.helpers
+	channelList: ->
+		Meteor.user().profile.channels

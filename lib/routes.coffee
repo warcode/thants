@@ -9,3 +9,11 @@ FlowRouter.route '/chan/:id',
 		else
 			console.log("channel is library")
 			Session.set 'channel', "library"
+
+
+FlowRouter.notFound =
+  subscriptions: ->
+  	
+  action: ->
+    FlowRouter.go '/chan/library'
+    return

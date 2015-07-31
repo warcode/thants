@@ -8,17 +8,26 @@ Meteor.methods
 
 		user = Meteor.users.findOne Meteor.userId(), fields: username: 1
 
-		now = new Date()
-		Messages.insert
-			userId : Meteor.userId()
-			user: user.username
-			channel: message.channel
-			text: message.text
-			urls: [{url : ""}]
-			time: now
+		internalChannelId = message.channel.toLowerCase()
+		userId = Meteor.userId()
+
+		permissionCheck = Channels.findOne({ _id : internalChannelId, members : userId })
+
+		if permissionCheck?
+			console.log("allowed to send message")
+
+			now = new Date()
+			Messages.insert
+				userId : Meteor.userId()
+				user: user.username
+				channel: message.channel
+				text: message.text
+				urls: [{url : ""}]
+				time: now
 
 	commandJoin: (channel, password) ->
 		console.log("trying to join channel " + channel + " using password " + password)
+
 		if not Meteor.userId()
 			throw new Meteor.Error('invalid-user', "[methods] sendMessage -> Invalid user")
 
@@ -26,20 +35,31 @@ Meteor.methods
 
 		userId = Meteor.userId()
 		user = Meteor.users.findOne Meteor.userId(), fields: username: 1
+		username = user.username
 
 		existing = Channels.findOne({_id: internalChannelId})
+
+		alreadyInChannel = Channels.findOne({ _id : channel, members : this.userId })
+
+		if alreadyInChannel?
+			return true
 
 		if existing?
 			console.log("existing")
 			#check if we are allowed in by checking the locked + password
 			if not existing.isLocked
+				console.log("not locked")
 				if existing.passwordHash is ""
-					Channels.update({_id: internalChannelId}, { $push: { members: userId } })
-					return
-					
+					console.log("no password exists")
+					Meteor.users.update({_id: userId}, {$push: { 'profile.channels' : internalChannelId }})
+					Channels.update({_id: internalChannelId}, { $push: { members: userId, who: username } })
+					return true
+
 				if password is existing.passwordHash
-					Channels.update({_id: internalChannelId}, { $push: { members: userId } })
-					return
+					Meteor.users.update({_id: userId}, {$push: { 'profile.channels' : internalChannelId }})
+					Channels.update({_id: internalChannelId}, { $push: { members: userId, who: username } })
+					return true
+			return false
 
 		if not existing? 
 			console.log("channel does not exist, creating it: " + channel + " with password: " + password)
@@ -49,6 +69,7 @@ Meteor.methods
 			,
 				_id: internalChannelId
 				members: [ userId ]
+				who: [ username ]
 				operators: [ userId ]
 				voices: []
 				banned: []
@@ -68,6 +89,8 @@ Meteor.methods
 				text: "*SCATTERS EVERYWHERE*"
 				urls: [{url : ""}]
 				time: now
+			Meteor.users.update({_id: userId}, {$push: { 'profile.channels' : internalChannelId }})
+			return true
 
 
 

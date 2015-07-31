@@ -25,8 +25,21 @@
 				parts = param.split(' ')
 				channel = parts[0]
 				password = parts[1]
-				Meteor.call 'commandJoin', channel, password
-				FlowRouter.go('/chan/' + channel);
+				Meteor.call 'commandJoin', channel, password, (err, joined) ->
+					console.log(joined)
+					if not joined
+						swal
+							title: 'ERROR' 
+							text: 'Could not join ' + channel
+
+					if joined
+						FlowRouter.go('/chan/' + channel);
+
+			if command is "test"
+				swal
+					title: 'ERROR' 
+					text:'TESTING TESTING'
+
 
 
 	send = (message) ->
