@@ -32,14 +32,14 @@ Meteor.methods
 		if existing?
 			console.log("existing")
 			#check if we are allowed in by checking the locked + password
-			if not existing.locked
+			if not existing.isLocked
 				if existing.passwordHash is ""
 					Channels.update({_id: internalChannelId}, { $push: { members: userId } })
 					return
-				if not existing.passwordHash is ""
-					if password is existing.passwordHash
-						Channels.update({_id: internalChannelId}, { $push: { members: userId } })
-						return
+					
+				if password is existing.passwordHash
+					Channels.update({_id: internalChannelId}, { $push: { members: userId } })
+					return
 
 		if not existing? 
 			console.log("channel does not exist, creating it: " + channel + " with password: " + password)
