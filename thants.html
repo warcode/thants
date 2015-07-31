@@ -1,0 +1,114 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>thants</title>
+</head>
+
+
+<body>
+    {{#if currentUser}}
+    <div class="main">
+        {{> menuleft}}
+        <div class="content">
+            {{> header}}
+            {{> messages}}
+            {{> inputarea}}
+        </div>
+    </div>
+    {{/if}}
+    {{#unless currentUser}}
+        {{> login}}
+    {{/unless}}
+</body>
+
+
+<template name="login">
+{{> loginButtons}}
+</template>
+
+<template name="menuleft">
+    <div class="menuleft">
+    
+    </div>
+</template>
+
+<template name="header">
+    <div class="header">
+    {{#if inChannel}}
+        <span>#{{channelName}}</span><span>&nbsp;[1]</span><span> &nbsp; {{channelTopic.topic}}</span><span> &nbsp; {{currentUser._id}}</span>
+    {{/if}}
+    </div>
+</template>
+
+<template name="messages">
+    <div class="message-container">
+        {{#each channelMessages}}
+            {{> message}}
+        {{/each}}
+    </div>
+</template>
+
+<template name="messagetest">
+<div class="message">
+    <div class="avatar-wrapper">
+        <div class="avatar" style="background-image:url(https://rocket.deny.io/avatar/warcode.jpg);">
+        </div>
+    </div>
+    <div class="message-wrapper">
+        <div class="message-header">
+            <span class="user">warcode</span>
+            <span class="info">
+                <span class="time">(18:20:00)</span>
+            </span>
+        </div>
+        <div class="message-content">
+            HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello
+        </div>
+    </div>
+</div>
+
+<div class="message grouped">
+    <div class="avatar-wrapper">
+        <div class="avatar" style="background-image:url(https://rocket.deny.io/avatar/warcode.jpg);">
+        </div>
+    </div>
+    <div class="message-wrapper">
+        <div class="message-header">
+            <span class="user">warcode</span>
+            <span class="info">
+                <span class="time">(18:20:00)</span>
+            </span>
+        </div>
+        <div class="message-content">
+            Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello 
+        </div>
+    </div>
+</div>
+</template>
+
+<template name="message">
+<div class="message" data-user="{{user}}" data-time="{{formatTimestamp}}">
+    <div class="avatar-wrapper">
+        <div class="avatar" style="background-image:url(https://cdn.dogomedia.com/system/ckeditor_assets/pictures/517187091860e02ff5002401/content_fire-ants.jpg);">
+        </div>
+    </div>
+    <div class="message-wrapper">
+        <div class="message-header">
+            <span class="{{userClass}}">{{user}}</span>
+            <span class="info">
+                <span class="time">({{formatTime}})</span>
+            </span>
+        </div>
+        <div class="message-content">
+            {{text}}
+        </div>
+    </div>
+</div>
+</template>
+
+<template name="inputarea">
+<div class="inputarea">
+    <textarea dir="auto" name="msg" class="input-message"></textarea>
+    <i class="send fa fa-paper-plane-o fa-lg" title="Send Message"></i>
+</div>
+</template>

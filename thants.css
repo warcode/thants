@@ -1,0 +1,146 @@
+/* CSS declarations go here */
+
+body {
+	margin: 0;
+	font-family: Consolas,Monaco,'Andale Mono',monospace;
+}
+
+.main {
+	display: flex;
+	flex-direction: row;
+	height: 100vh;
+	max-height: 100%;
+}
+
+.menuleft {
+	/*background-color: #044974;*/
+	background-color: #272822;
+	color: #f8f8f2;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	max-height: 100%;
+	width: 2vw;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	max-height: 100%;
+}
+
+.header {
+	display: flex;
+	flex-direction: row;
+	padding-left: 1vw;
+	padding-top: 1vh;
+	height: 2vh;
+	align-items: center;
+	box-shadow: 0 0 1px gray;
+}
+
+.message-container {
+  	display: flex;
+  	flex-direction: column-reverse;
+  	overflow-y: auto;
+	height: 89vh;
+	padding-top: 1vh;
+	padding-left: 1vw;
+	padding-right: 1vw;
+}
+
+.message {
+	margin: 5px;
+	display: flex;
+	flex-direction: row;
+}
+
+.message.grouped {
+	margin-top: 0;
+}
+
+.message.grouped .avatar {
+	display: none;
+}
+
+.message.grouped .message-header {
+	display:none;
+}
+
+.avatar-wrapper {
+	display: flex;
+	min-width: 40px;
+}
+
+.avatar {
+    height: 40px;
+    width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    background-color: transparent;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 4px;
+}
+
+.message-wrapper {
+	display: flex;
+	flex-direction: column;
+	margin-left: calc(1vw/1.5);
+}
+
+.message-header {
+
+}
+
+.message-header .user {
+	color: #444444;
+    font-weight: 900;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.message-header .user.ants {
+	color: red;
+}
+
+.message-content {
+	margin-top: calc(1vh/2);
+	overflow: wrap;
+	overflow-wrap: break-word;
+}
+
+
+.inputarea {
+	height: 5vh;
+ 	padding: 10px 20px 0px 20px;
+    border-top: 1px solid #eaeaea;
+    z-index: 100;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.inputarea textarea {
+	display: block;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    padding-right: 38px;
+    overflow-y: hidden;
+    resize: none;
+    line-height: normal;
+    border: 1px solid #dfdfdf;
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 2px 8px;
+    box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    width: 95vw;
+    outline: none;
+}
+
+.inputarea i {
+	padding-left: 8px;
+}
