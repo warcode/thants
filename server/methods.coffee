@@ -33,11 +33,11 @@ Meteor.methods
 			console.log("existing")
 			#check if we are allowed in by checking the locked + password
 			if not existing.locked
-				if existing.password is ""
+				if existing.passwordHash is ""
 					Channels.update({_id: internalChannelId}, { $push: { members: userId } })
 					return
-				if not existing.password is ""
-					if password is existing.password
+				if not existing.passwordHash is ""
+					if password is existing.passwordHash
 						Channels.update({_id: internalChannelId}, { $push: { members: userId } })
 						return
 

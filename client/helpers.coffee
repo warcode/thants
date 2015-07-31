@@ -31,7 +31,7 @@ Template.message.helpers
 Template.header.helpers
 	channelTopic: ->
 		channel = Session.get 'channel'
-		Channels.findOne({_id : channel})
+		Channels.findOne({_id : channel}).topic
 
 	channelCount: ->
 		channel = Session.get 'channel'
