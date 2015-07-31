@@ -40,6 +40,14 @@
 					title: 'ERROR' 
 					text:'TESTING TESTING'
 
+			if command is "logout" or command is "logoff"
+				console.log("logging out")
+				Meteor.logout()
+
+			if command is "logoutall" or command is "logoffall"
+				console.log("logging out all")
+				Meteor.logoutOtherClients()
+
 
 
 	send = (message) ->

@@ -50,6 +50,13 @@ Template.header.helpers
 		if instance?
 			instance.who.join()
 
+Template.loginscreen.helpers
+	registering: ->
+		registering = Session.get 'registering'
+		if registering is "true"
+			return true
+		return false
+
 Template.menuleft.helpers
 	channelList: ->
 		Meteor.user().profile.channels

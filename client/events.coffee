@@ -35,6 +35,53 @@ Template.menuleft.events
 		FlowRouter.go channel
 
 
+Template.login.events
+	'click .login .registerswitch': (event) ->
+		console.log("go to register")
+		Session.set('registering', "true")
+
+	'click .login .loginButton': (event) ->
+		username = $(event.target).siblings('#loginUsername').val()
+		password = $(event.target).siblings('#loginPassword').val()
+		Meteor.loginWithPassword username, password
+
+	'keydown .login #loginPassword': (event) ->
+		if event.which is 13 and not event.shiftKey
+			event.preventDefault()
+			event.stopPropagation()
+			username = $(event.target).siblings('#loginUsername').val()
+			password = $(event.target).val()
+			Meteor.loginWithPassword username, password
+
+
+
+Template.register.events
+	'click .register .loginswitch': (event) ->
+		Session.set('registering', "false")
+
+	'click .register .registerButton': (event) ->
+		username = $(event.target).siblings('#registerUsername').val()
+		password = $(event.target).siblings('#registerPassword').val()
+		confirm = event.target.registerPasswordConfirm.value
+
+		if password is confirm
+			Accounts.createUser
+  				username: username
+  				password: password
+
+	'keydown .register #registerPasswordConfirm': (event) ->
+		if event.which is 13 and not event.shiftKey
+			event.preventDefault()
+			event.stopPropagation()
+			username = $(event.target).siblings('#registerUsername').val()
+			password = $(event.target).val()
+			confirm = event.target.registerPasswordConfirm.value
+
+			if password is confirm
+				Accounts.createUser
+	  				username: username
+	  				password: password
+
 Template.message.onRendered ->
 	element = this.find('.message')
 	
@@ -49,3 +96,4 @@ Template.message.onRendered ->
 	if user?
 		if prevUser is user and not timeCheck
 			$(element).toggleClass('grouped')
+

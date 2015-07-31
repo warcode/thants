@@ -17,13 +17,41 @@
     </div>
     {{/if}}
     {{#unless currentUser}}
-        {{> login}}
+        {{> loginscreen}}
     {{/unless}}
 </body>
 
 
+<template name="loginscreen">
+    <div class="loginscreen">
+        {{#unless registering}}
+            {{> login}}
+        {{/unless}}
+        {{#if registering}}
+            {{> register}}
+        {{/if}}
+    </div>
+</template>
+
 <template name="login">
-{{> loginButtons}}
+<div class="login">
+    <input type="text" id="loginUsername" name="loginUsername" placeholder="username">
+    <input type="password" id="loginPassword" name="loginPassword" placeholder="password">
+    <div class="loginButton">Login</div>
+    <div>or</div>
+    <div class="registerswitch">Register</div>
+</div>
+</template>
+
+<template name="register">
+<div class="register">
+    <input type="text" id="registerUsername" name="registerUsername" placeholder="username">
+    <input type="password" id="registerPassword" name="registerPassword" placeholder="password">
+    <input type="password" id="registerPasswordConfirm" name="registerPasswordConfirm" placeholder="password">
+    <div class="registerButton">Register</div>
+    <div>or</div>
+    <div class="loginswitch">Back to login</div>
+</div>
 </template>
 
 <template name="menuleft">
@@ -110,7 +138,7 @@
 
 <template name="inputarea">
 <div class="inputarea">
-    <textarea dir="auto" name="msg" class="input-message"></textarea>
+    <textarea autofocus dir="auto" name="msg" class="input-message" tabindex="1"></textarea>
     <i class="send fa fa-paper-plane-o fa-lg" title="Send Message"></i>
 </div>
 </template>
