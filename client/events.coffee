@@ -101,8 +101,8 @@ Template.message.onRendered ->
 	#highlight
 	username = Meteor.user().username
 	content = $(element).find('.message-content')
-	text = content.html()
-	if (text.indexOf(username) > 0)
+	text = content.html().toLowerCase()
+	if (text.indexOf(username.toLowerCase()) > 0)
 		$(element).toggleClass('highlight')
 
 	#gif play control
