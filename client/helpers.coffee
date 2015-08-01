@@ -36,7 +36,8 @@ Template.message.helpers
 		return "user"
 
 	avatar: ->
-		uid = Meteor.user()._id
+		user = Meteor.users.findOne({username: this.user} , {fields: {_id: 1}})
+		uid = user._id
 		data = Avatars.findOne({ _id: uid })
 		if data?
 			return data.avatar
