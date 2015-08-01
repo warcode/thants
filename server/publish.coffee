@@ -13,7 +13,7 @@ Meteor.publish 'messages', (channel) ->
 
 	if permissionCheck?
 		console.log("allowed to enter")
-		Messages.find({ channel : channel }, { limit: 100 })
+		Messages.find({ channel : channel }, {sort: [["time", "desc"]], limit: 100 })
 	else
 		console.log("not allowed to enter")
 		Messages.find({ channel : "library" })
