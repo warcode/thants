@@ -107,11 +107,13 @@ Meteor.methods
 			throw new Meteor.Error('invalid-user', "invalid user")
 
 		userId = Meteor.userId()
-		
+		username = Meteor.user().username
+
 		Avatars.update
 				_id: userId
 			,
 				_id: userId
+				username: username
 				avatar: avatar
 			,
 				upsert: true
