@@ -60,8 +60,9 @@
 
 
 	send = (message) ->
+		console.log("sending message")
 		Meteor.call 'sendMessage', message
-		#console.log(message)
+		
 
 	newInput: newInput
 	send: send
