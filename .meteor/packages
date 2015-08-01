@@ -8,6 +8,8 @@ meteor-platform
 coffeescript
 accounts-password
 kadira:flow-router
+jquery
 momentjs:moment
 fortawesome:fontawesome
 kevohagan:sweetalert
+spectrum:freezeframe

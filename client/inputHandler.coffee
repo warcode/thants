@@ -11,7 +11,13 @@
 			input.val('')
 			return
 
-		message = { _id: Random.id(), channel: channel, text: msg}
+		message = { _id: Random.id(), channel: channel, text: msg }
+
+		urls = msg.match /([A-Za-z]{3,9}):\/\/([-;:&=\+\$,\w]+@{1})?([-A-Za-z0-9\.]+)+:?(\d+)?((\/[-\+=!:~%\/\.@\,\w]+)?\??([-\+=&!:;%@\/\.\,\w]+)?#?([\w\/]+)?)?/g
+		console.log(urls)
+		if urls?
+			message.urls = urls.map (url) -> url: url
+
 		send(message)
 		input.val('')
 

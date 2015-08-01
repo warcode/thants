@@ -88,6 +88,7 @@ body {
 	height: 2vh;
 	align-items: center;
 	box-shadow: 0 0 1px gray;
+	z-index: -1;
 }
 
 .message-container {
@@ -104,6 +105,17 @@ body {
 	margin: 5px;
 	display: flex;
 	flex-direction: row;
+	flex-shrink: 0;
+}
+
+.message a {
+    color: #33b5e5;
+    text-decoration: none;
+}
+
+.message a:visited {
+    color: #33b5e5;
+    text-decoration: none;	
 }
 
 .message.grouped {
@@ -160,6 +172,8 @@ body {
 	margin-top: calc(1vh/2);
 	overflow: wrap;
 	overflow-wrap: break-word;
+	display: flex;
+	flex-direction: column;
 }
 
 

@@ -22,7 +22,7 @@ Meteor.methods
 				user: user.username
 				channel: message.channel
 				text: message.text
-				urls: [{url : ""}]
+				urls: message.urls
 				time: now
 
 	commandJoin: (channel, password) ->

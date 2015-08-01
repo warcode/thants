@@ -85,6 +85,7 @@ Template.register.events
 Template.message.onRendered ->
 	element = this.find('.message')
 	
+	#message grouping
 	user = $(element).attr('data-user')
 	prevUser = $(element).next().attr('data-user')
 
@@ -96,4 +97,7 @@ Template.message.onRendered ->
 	if user?
 		if prevUser is user and not timeCheck
 			$(element).toggleClass('grouped')
+
+	#Gifffer()
+	freezeframe.run()
 

@@ -31,6 +31,32 @@ Template.message.helpers
 	avatar: ->
 		return "#{Meteor.absoluteUrl()}avatar/#{this.user.toLowerCase()}.png"
 
+	formatContent: ->
+		content = this.text
+
+		if this.urls?
+			console.log("message has urls")
+			#linkify
+			for url in this.urls
+				content = content.replace url.url, "<a href=\"#{url.url}\" target=\"_new\">#{url.url}</a>"
+
+			#embed first url only
+			firstUrl = this.urls[0].url
+			picture = firstUrl.match(/^(https:\/\/\S*\.(?:jpe?g|gif|png))$/i)
+			webm = firstUrl.match(/^(https:\/\/\S*\.(?:webm|gifv))$/i)
+			youtube = firstUrl.match(/^https:\/\/\S*[youtube.com|youtu.be]\/watch\?\S*v=(\w*)\S*$/i)
+			imgur = firstUrl.match(/^https:\/\/\S*[imgur.com]\/(\w*)$/i)
+			if picture?
+				content += "<img crossOrigin=\"Anonymous\" class=\"freezeframe\" style='max-width:750px; max-height:525px; width: auto; height: auto; padding-top: 5px;' src='" + picture[0] + "'></img>"
+			if webm?
+				content += "<video style='max-width:750px; max-height:525px; width: auto; height: auto; padding-top: 5px;' src='" + webm[0] + "' loop='' controls='' muted=''></video>"
+			if youtube?
+				content += "<iframe src='https://www.youtube.com/embed/"+youtube[1]+"?wmode=transparent&amp;jqoemcache=xd8Cb' width='425' height='349' allowfullscreen='true' allowscriptaccess='always' scrolling='no' frameborder='0' style='max-height: 525px; max-width: 750px; width: 500px; height: 410.588235294118px; padding-top: 5px;''></iframe>"
+			if imgur?
+				content += "<img class=\"freezeframe\" style='max-width:750px; max-height:525px; width: auto; height: auto; padding-top: 5px;' src='https://i.imgur.com/" + imgur[1] + ".png'></img>"
+
+		return content
+
 Template.header.helpers
 	channelTopic: ->
 		channel = Session.get 'channel'
