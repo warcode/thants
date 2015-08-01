@@ -134,10 +134,11 @@ body {
 
 .menuleft .channel {
 	cursor: pointer;
+	color: gray;
 }
 
 .menuleft .channel.active {
-	color: green;
+	color: #f8f8f2;
 }
 
 .content {
