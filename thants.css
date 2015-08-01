@@ -349,3 +349,18 @@ body {
 .inputarea i {
 	padding-left: 8px;
 }
+
+.time {
+	font-size: 80%;
+}
+
+.dropzone {
+    border: 2px dashed #bbb;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 25px;
+    text-align: center;
+    font: 20pt bold 'Vollkorn';
+    color: #bbb;
+}
