@@ -26,6 +26,16 @@ body {
 	width: 10vw;
 	height: 3vh;
 	font-size: 1.1em;
+	min-width: 150px;
+    min-height: 25px;
+}
+
+.loginscreen .login .loginButton {
+	cursor: pointer;
+}
+
+.loginscreen .login .registerswitch {
+	cursor: pointer;
 }
 
 .loginscreen .register {
@@ -34,6 +44,14 @@ body {
     align-items: center;
     justify-content: center;
 	color: #f8f8f2;
+}
+
+.loginscreen .register .registerButton {
+	cursor: pointer;
+}
+
+.loginscreen .register .loginswitch {
+	cursor: pointer;
 }
 
 .loginscreen .register input {
