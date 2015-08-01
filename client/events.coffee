@@ -94,7 +94,7 @@ Template.avatarupload.events
 		event.stopPropagation()
 		event.preventDefault()
 		file = event.originalEvent.dataTransfer.files[0]
-		if file.type is "image/png"
+		if file.type is "image/png"  and (file.size < 500000)
 			console.log(file.name)
 			reader = new FileReader()
 			reader.onloadend = ->
