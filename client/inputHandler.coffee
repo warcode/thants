@@ -60,6 +60,11 @@
 			if command is "avatar"
 				Session.set 'uploadingavatar', "true"
 
+			if command is "help"
+				swal
+					title: 'Commands' 
+					text:'/join channel password\n/logout and /logoutall\n/avatar'
+
 
 
 	send = (message) ->

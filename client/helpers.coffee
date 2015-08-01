@@ -95,7 +95,7 @@ Template.loginscreen.helpers
 
 Template.menuleft.helpers
 	channelList: ->
-		Meteor.user().profile.channels
+		Meteor.user().profile.channels.sort()
 
 	activeChannel: ->
 		channel = Session.get 'channel'

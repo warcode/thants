@@ -7,6 +7,7 @@
 meteor-platform
 coffeescript
 accounts-password
+npm-bcrypt
 kadira:flow-router
 jquery
 momentjs:moment

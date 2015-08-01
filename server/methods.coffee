@@ -1,3 +1,5 @@
+bcrypt = Package['npm-bcrypt'].NpmModuleBcrypt
+
 Meteor.methods
 	sendMessage: (message) ->
 
@@ -54,7 +56,11 @@ Meteor.methods
 					Channels.update({_id: internalChannelId}, { $push: { members: userId, who: username } })
 					return true
 
-				if password is existing.passwordHash
+				if not password?
+					return false
+
+				if bcrypt.compareSync(password, existing.passwordHash)
+					console.log("correct password")
 					Meteor.users.update({_id: userId}, {$push: { 'profile.channels' : internalChannelId }})
 					Channels.update({_id: internalChannelId}, { $push: { members: userId, who: username } })
 					return true
@@ -62,6 +68,11 @@ Meteor.methods
 
 		if not existing? 
 			console.log("channel does not exist, creating it: " + channel + " with password: " + password)
+
+			hash = ""
+			if password?
+				salt = bcrypt.genSaltSync(10)
+				hash = bcrypt.hashSync(password, salt)
 
 			Channels.update
 				_id: internalChannelId
@@ -73,7 +84,7 @@ Meteor.methods
 				voices: []
 				banned: []
 				topic: "Welcome to #" + internalChannelId
-				passwordHash: password ? ""
+				passwordHash: hash
 				encryptedKey: ""
 				isLocked: false
 				isMuted: false
