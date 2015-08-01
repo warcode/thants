@@ -14,7 +14,7 @@
 		message = { _id: Random.id(), channel: channel, text: msg }
 
 		urls = msg.match /([A-Za-z]{3,9}):\/\/([-;:&=\+\$,\w]+@{1})?([-A-Za-z0-9\.]+)+:?(\d+)?((\/[-\+=!:~%\/\.@\,\w]+)?\??([-\+=&!:;%@\/\.\,\w]+)?#?([\w\/]+)?)?/g
-		console.log(urls)
+		#console.log(urls)
 		if urls?
 			message.urls = urls.map (url) -> url: url
 
@@ -35,7 +35,7 @@
 				channel = channel.replace /[^a-zA-Z0-9]/g, ''
 
 				Meteor.call 'commandJoin', channel, password, (err, joined) ->
-					console.log(joined)
+					#console.log(joined)
 					if not joined
 						swal
 							title: 'ERROR' 
@@ -60,7 +60,7 @@
 
 
 	send = (message) ->
-		console.log(message)
+		#console.log(message)
 		Meteor.call 'sendMessage', message
 
 	newInput: newInput

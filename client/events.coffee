@@ -98,6 +98,13 @@ Template.message.onRendered ->
 		if prevUser is user and not timeCheck
 			$(element).toggleClass('grouped')
 
-	#Gifffer()
+	#highlight
+	username = Meteor.user().username
+	content = $(element).find('.message-content')
+	text = content.html()
+	if (text.indexOf(username) > 0)
+		$(element).toggleClass('highlight')
+
+	#gif play control
 	freezeframe.run()
 

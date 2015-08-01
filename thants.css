@@ -58,6 +58,8 @@ body {
 	width: 10vw;
 	height: 3vh;
 	font-size: 1.1em;
+	min-width: 150px;
+    min-height: 25px;
 }
 
 .main {
@@ -151,6 +153,7 @@ body {
 .avatar-wrapper {
 	display: flex;
 	min-width: 40px;
+	padding: 1px;
 }
 
 .avatar {
@@ -192,6 +195,14 @@ body {
 	overflow-wrap: break-word;
 	display: flex;
 	flex-direction: column;
+	font-family: Lato, sans-serif;
+}
+
+.message.highlight {
+    background-color: #fce8f1;
+    padding: 1px;
+    border-radius: 4px;
+    /*border: 1px solid #ee7db0;*/
 }
 
 
