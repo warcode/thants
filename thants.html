@@ -10,6 +10,9 @@
     <div class="main">
         {{> menuleft}}
         <div class="content">
+            {{#if uploadingAvatar}}
+                {{> avatarupload}}
+            {{/if}}
             {{> header}}
             {{> messages}}
             {{> inputarea}}
@@ -102,5 +105,11 @@
 <div class="inputarea">
     <textarea autofocus dir="auto" name="msg" class="input-message" tabindex="1"></textarea>
     <i class="send fa fa-paper-plane-o fa-lg" title="Send Message"></i>
+</div>
+</template>
+
+<template name="avatarupload">
+<div id="dropzone">
+    Drop avatar here
 </div>
 </template>

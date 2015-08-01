@@ -20,3 +20,6 @@ Meteor.publish 'messages', (channel) ->
 
 Meteor.publish 'users', ->
 	return Meteor.users.find({ _id: this.userId })
+
+Meteor.publish 'avatars', ->
+	return Avatars.find({})

@@ -1,3 +1,10 @@
+Template.body.helpers
+	uploadingAvatar: ->
+		uploading = Session.get 'uploadingavatar'
+		if uploading is "true"
+			return true
+		return false
+
 Template.header.helpers
   inChannel: -> 
   	channel = Session.get 'channel'
@@ -29,7 +36,11 @@ Template.message.helpers
 		return "user"
 
 	avatar: ->
-		return "#{Meteor.absoluteUrl()}avatar/#{this.user.toLowerCase()}.png"
+		uid = Meteor.user()._id
+		data = Avatars.findOne({ _id: uid })
+		if data?
+			return data.avatar
+		return ""
 
 	formatContent: ->
 		content = this.text

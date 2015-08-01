@@ -2,6 +2,7 @@ Template.messages.onCreated ->
   instance = this
   instance.autorun ->
   	instance.subscribe('messages', Session.get('channel'))
+  	instance.subscribe('avatars')
 
 Template.header.onCreated ->
 	instance = this
@@ -81,6 +82,27 @@ Template.register.events
 				Accounts.createUser
 	  				username: username
 	  				password: password
+
+
+Template.avatarupload.events
+	'dragover #dropzone': (event) ->
+		event.stopPropagation()
+		event.preventDefault()
+		event.originalEvent.dataTransfer.dropEffect = 'copy'
+
+	'drop #dropzone': (event) ->
+		event.stopPropagation()
+		event.preventDefault()
+		file = event.originalEvent.dataTransfer.files[0]
+		if file.type is "image/png"
+			console.log(file.name)
+			reader = new FileReader()
+			reader.onloadend = ->
+  				Meteor.call 'commandSetAvatar', reader.result
+  				return
+			reader.readAsDataURL(file)
+			Session.set 'uploadingavatar', ""
+
 
 Template.message.onRendered ->
 	element = this.find('.message')

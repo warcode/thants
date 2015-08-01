@@ -57,6 +57,9 @@
 				Meteor.logoutOtherClients()
 				console.log("logging out all")
 
+			if command is "avatar"
+				Session.set 'uploadingavatar', "true"
+
 
 
 	send = (message) ->

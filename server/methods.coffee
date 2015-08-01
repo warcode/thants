@@ -2,9 +2,7 @@ Meteor.methods
 	sendMessage: (message) ->
 
 		if not Meteor.userId()
-			throw new Meteor.Error('invalid-user', "[methods] sendMessage -> Invalid user")
-
-		console.log '[methods] sendMessage -> '.green, 'userId:', Meteor.userId(), 'arguments:', arguments
+			throw new Meteor.Error('invalid-user', "invalid user")
 
 		user = Meteor.users.findOne Meteor.userId(), fields: username: 1
 
@@ -103,3 +101,17 @@ Meteor.methods
 
 	commandBan: (channel, user) ->
 		console.log("trying to ban")
+
+	commandSetAvatar: (avatar) ->
+		if not Meteor.userId()
+			throw new Meteor.Error('invalid-user', "invalid user")
+
+		userId = Meteor.userId()
+		
+		Avatars.update
+				_id: userId
+			,
+				_id: userId
+				avatar: avatar
+			,
+				upsert: true
