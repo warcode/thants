@@ -31,7 +31,8 @@ Meteor.methods
 		if not Meteor.userId()
 			throw new Meteor.Error('invalid-user', "[methods] sendMessage -> Invalid user")
 
-		internalChannelId = channel.toLowerCase()
+		internalChannelId = channel.replace /[^a-zA-Z0-9]/g, ''
+		internalChannelId = internalChannelId.toLowerCase()
 
 		userId = Meteor.userId()
 		user = Meteor.users.findOne Meteor.userId(), fields: username: 1

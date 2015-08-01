@@ -31,6 +31,9 @@
 				parts = param.split(' ')
 				channel = parts[0]
 				password = parts[1]
+
+				channel = channel.replace /[^a-zA-Z0-9]/g, ''
+
 				Meteor.call 'commandJoin', channel, password, (err, joined) ->
 					console.log(joined)
 					if not joined

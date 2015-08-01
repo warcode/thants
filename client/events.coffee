@@ -62,7 +62,7 @@ Template.register.events
 	'click .register .registerButton': (event) ->
 		username = $(event.target).siblings('#registerUsername').val()
 		password = $(event.target).siblings('#registerPassword').val()
-		confirm = event.target.registerPasswordConfirm.value
+		confirm = $(event.target).siblings('#registerPasswordConfirm').val()
 
 		if password is confirm
 			Accounts.createUser
@@ -74,8 +74,8 @@ Template.register.events
 			event.preventDefault()
 			event.stopPropagation()
 			username = $(event.target).siblings('#registerUsername').val()
-			password = $(event.target).val()
-			confirm = event.target.registerPasswordConfirm.value
+			password = $(event.target).siblings('#registerPassword').val()
+			confirm = $(event.target).val()
 
 			if password is confirm
 				Accounts.createUser
