@@ -32,5 +32,5 @@ Meteor.publish 'avatarsbychannel', (channel) ->
 		return
 
 	members = instance.members
-	console.log("found avatars")
+	members.push('ANTS')
 	return Avatars.find({_id : { $in: members} })
