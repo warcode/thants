@@ -5,9 +5,9 @@ Meteor.startup ->
 			Channels.insert
 				_id: 'library'
 				members: ['5AaGXpaGxSPQQC8Zf']
-				who: []
-				operators: ['5AaGXpaGxSPQQC8Zf']
-				voices: []
+				who: [ 'ANTS' ]
+				operators: ['ANTS']
+				voices: [ 'ANTS' ]
 				banned: []
 				topic: "Welcome to #library"
 				passwordHash: ""

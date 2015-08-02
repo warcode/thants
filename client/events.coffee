@@ -2,7 +2,8 @@ Template.messages.onCreated ->
   instance = this
   instance.autorun ->
   	instance.subscribe('messages', Session.get('channel'))
-  	instance.subscribe('avatars')
+  	instance.subscribe('avatarsbychannel', Session.get('channel'))
+  	#instance.subscribe('avatars')
 
 Template.header.onCreated ->
 	instance = this

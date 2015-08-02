@@ -23,3 +23,14 @@ Meteor.publish 'users', ->
 
 Meteor.publish 'avatars', ->
 	return Avatars.find({})
+
+Meteor.publish 'avatarsbychannel', (channel) ->
+	console.log("publishing avatarsbychannel")
+	instance = Channels.findOne({ _id : channel}, { fields: {members: 1} })
+
+	if not instance?
+		return
+
+	members = instance.members
+	console.log("found avatars")
+	return Avatars.find({_id : { $in: members} })
