@@ -96,7 +96,7 @@ Meteor.methods
 				userId : "ANTS"
 				user: "ANTS"
 				channel: internalChannelId
-				text: "*SCATTERS EVERYWHERE*"
+				text: "*SCATTER EVERYWHERE*"
 				urls: [{url : ""}]
 				time: now
 			Meteor.users.update({_id: userId}, {$push: { 'profile.channels' : internalChannelId }})

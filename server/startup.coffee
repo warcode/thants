@@ -22,7 +22,7 @@ Meteor.startup ->
 				userId : "ANTS"
 				user: "ANTS"
 				channel: "library"
-				text: "*SCATTERS EVERYWHERE*"
+				text: "*SCATTER EVERYWHERE*"
 				urls: [{url : ""}]
 				time: now
 
