@@ -128,8 +128,15 @@ body {
 	        flex-direction: column;
 	height: 100vh;
 	max-height: 100%;
-	width: 4vw;
+	/*width: 4vw;*/
+	width: 100px;
 	overflow-x: hidden;
+	-webkit-flex-shrink: 0;
+	    -ms-flex-negative: 0;
+	        flex-shrink: 0;
+	-webkit-flex-basis: 100px;
+	    -ms-flex-preferred-size: 100px;
+	        flex-basis: 100px;
 }
 
 .menuleft .channel {
@@ -155,7 +162,7 @@ body {
 	        flex-direction: column;
 	height: 100vh;
 	max-height: 100%;
-	width: 96vw;
+	/*width: 96vw;*/
 	max-width: 100%;
 }
 
@@ -356,8 +363,6 @@ body {
 
 .dropzone {
     border: 2px dashed #bbb;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
     border-radius: 5px;
     padding: 25px;
     text-align: center;
@@ -366,8 +371,14 @@ body {
 }
 
 .alert {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 .alert-warning {
