@@ -81,10 +81,12 @@ Template.header.helpers
 			instance.members.length
 
 	channelWho: ->
+		console.log("getting channel status")
 		channel = Session.get 'channel'
 		instance = Channels.findOne({_id : channel})
 		if instance?
-			instance.who.join()
+			online = Meteor.users.find({'status.online': true, 'status.idle': false, username: { $in: instance.who } })
+			return (x.username for x in online.fetch()).join(', ')
 
 Template.loginscreen.helpers
 	registering: ->

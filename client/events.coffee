@@ -9,6 +9,7 @@ Template.header.onCreated ->
 	instance = this
 	instance.autorun ->
 		instance.subscribe('channels')
+		instance.subscribe('userstatus', Session.get('channel'))
 
 Template.inputarea.events
 	'click .inputarea .send': (event) ->

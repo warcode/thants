@@ -364,3 +364,14 @@ body {
     font: 20pt bold 'Vollkorn';
     color: #bbb;
 }
+
+.alert {
+    display: flex;
+    justify-content: center;
+}
+
+.alert-warning {
+	color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}

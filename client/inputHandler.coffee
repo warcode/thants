@@ -116,7 +116,7 @@
 							title: 'ERROR' 
 							text: 'Could not change topic in ' + channel
 
-			if command is "help"
+			if command is "help" or command is "?"
 				swal
 					title: 'Commands' 
 					text:'/join channel password\n/leave\n/logout and /logoutall\n/avatar'

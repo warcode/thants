@@ -8,6 +8,8 @@ meteor-platform
 coffeescript
 accounts-password
 npm-bcrypt
+mizzao:user-status
+francocatena:status
 kadira:flow-router
 jquery
 momentjs:moment
