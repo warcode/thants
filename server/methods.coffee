@@ -106,12 +106,71 @@ Meteor.methods
 
 	commandLeave: (channel) ->
 		console.log("trying to leave channel")
+		if not Meteor.userId()			
+			throw new Meteor.Error('invalid-user', "[methods] sendMessage -> Invalid user")
+			return false
+
+		userInChannel = Channels.findOne({ _id : channel, members : this.userId })
+		if not userInChannel?
+			return false
+
+		user = Meteor.users.findOne Meteor.userId(), fields: username: 1
+		username = user.username
+		Meteor.users.update({_id: this.userId}, {$pull: { 'profile.channels' : channel }})
+		Channels.update({_id: channel}, { $pull: { members: this.userId, who: username, operators: this.userId, voices: this.userId } })
+		return true
+
+
+
 
 	commandKick: (channel, user) ->
 		console.log("trying to kick")
 
+
 	commandBan: (channel, user) ->
 		console.log("trying to ban")
+		if not Meteor.userId()			
+			throw new Meteor.Error('invalid-user', "[methods] sendMessage -> Invalid user")
+			return false
+
+		if user is "ANTS"
+			return false
+
+		permissionCheck = Channels.findOne({ _id : channel, members : this.userId, operators : this.userId })
+
+		if permissionCheck?
+			console.log("allowed to ban")
+			userToBan = Meteor.users.findOne({ username: user },{ fields: {_id: 1 } })
+			userIdToBan = userToBan._id
+
+			userIsInChannel = Channels.findOne({ _id : channel, members : userIdToBan })
+
+			if userIsInChannel?
+				Meteor.users.update({_id: userIdToBan}, {$pull: { 'profile.channels' : channel }})
+				Channels.update({_id: channel}, { $push: { banned: userIdToBan } })
+				Channels.update({_id: channel}, { $pull: { members: userIdToBan, who: user, operators: userIdToBan, voices: userIdToBan } })
+				return true
+
+		return false
+
+
+	commandUnban: (channel, user) ->
+		console.log("trying to unban")
+		if not Meteor.userId()			
+			throw new Meteor.Error('invalid-user', "[methods] sendMessage -> Invalid user")
+			return false
+
+		permissionCheck = Channels.findOne({ _id : channel, members : this.userId, operators : this.userId })
+
+		if permissionCheck?
+			console.log("allowed to unban")
+			userToUnBan = Meteor.users.findOne({ username: user },{ fields: {_id: 1 } })
+			userIdToUnBan = userToUnBan._id
+			Channels.update({_id: channel}, { $pull: { banned: userIdToUnBan } })
+			return true
+
+		return false
+
 
 	commandTopic: (channel, topic) ->
 		if not Meteor.userId()

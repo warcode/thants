@@ -42,7 +42,32 @@
 							text: 'Could not join ' + channelToJoin
 
 					if joined
-						FlowRouter.go('/chan/' + channelToJoin);
+						FlowRouter.go('/chan/' + channelToJoin)
+
+			if command is "leave" or command is "quit"
+				Meteor.call 'commandLeave', channel, (err, left) ->
+					if left
+						FlowRouter.go('/chan/library')
+					if not left
+						swal
+							title: 'ERROR'
+							text: 'Could not leave ' + channel
+
+			if command is "ban"
+				user = param
+				Meteor.call 'commandBan', channel, user, (err, banned) ->
+					if not banned
+						swal
+							title: 'ERROR' 
+							text: 'Could not ban user'
+
+			if command is "unban"
+				user = param
+				Meteor.call 'commandUnban', channel, user, (err, unbanned) ->
+					if not unbanned
+						swal
+							title: 'ERROR' 
+							text: 'Could not unban user'
 
 			if command is "test"
 				swal
@@ -71,7 +96,7 @@
 			if command is "help"
 				swal
 					title: 'Commands' 
-					text:'/join channel password\n/logout and /logoutall\n/avatar'
+					text:'/join channel password\n/leave\n/logout and /logoutall\n/avatar'
 
 
 
