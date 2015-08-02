@@ -5,6 +5,12 @@ Template.body.helpers
 			return true
 		return false
 
+	partyTime: ->
+		partyTime = Session.get 'partytime'
+		if partyTime is "true"
+			return true
+		return false
+
 Template.header.helpers
   inChannel: -> 
   	channel = Session.get 'channel'

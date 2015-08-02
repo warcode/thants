@@ -116,6 +116,12 @@
 							title: 'ERROR' 
 							text: 'Could not change topic in ' + channel
 
+			if command is "party"
+				Session.set 'partytime', "true"
+
+			if command is "partyoff"
+				Session.set 'partytime', ""
+
 			if command is "help" or command is "?"
 				swal
 					title: 'Commands' 

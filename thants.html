@@ -11,6 +11,9 @@
         {{> menuleft}}
         <div class="content">
             {{> status}}
+            {{#if partyTime}}
+                {{> party}}
+            {{/if}}
             {{#if uploadingAvatar}}
                 {{> avatarupload}}
             {{/if}}
@@ -113,4 +116,10 @@
 <div id="dropzone" class="dropzone">
     Drop avatar here
 </div>
+</template>
+
+<template name="party">
+<video autoplay="" loop="" id="bgvid" style="position: absolute;right: 0;top: 0;width: 100%;height: auto;z-index: -100;background-size: cover;max-height: 100%;">
+        <source src="https://loli.dance/illya.webm" type="video/webm">
+</video>
 </template>
