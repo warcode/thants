@@ -1,5 +1,19 @@
 Meteor.startup ->
-  Deps.autorun ->
-    document.title = "thants : " + Session.get('channel')
-    return
-  return
+	Tracker.autorun ->
+		if Meteor.userId()
+			try
+				UserStatus.startMonitor
+					threshold: 300000
+					interval: 10000
+					idleOnBlur: false
+				console.log("starting idle monitor")
+			catch err
+				console.log(err.message)
+		else
+			UserStatus.stopMonitor()
+		return
+
+	Deps.autorun ->
+		document.title = "thants : " + Session.get('channel')
+		return
+	return
