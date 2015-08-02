@@ -162,7 +162,9 @@ body {
 	        flex-direction: column;
 	height: 100vh;
 	max-height: 100%;
-	/*width: 96vw;*/
+	-webkit-flex-basis: 96vw;
+	    -ms-flex-preferred-size: 96vw;
+	        flex-basis: 96vw;
 	max-width: 100%;
 }
 
