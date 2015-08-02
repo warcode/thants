@@ -7,7 +7,7 @@
 	newInput = (input, channel, msg) ->
 		console.log("new input: " + msg)
 		if msg[0] is '/'
-			slashCommand(msg)
+			slashCommand(msg, channel)
 			input.val('')
 			return
 
@@ -21,7 +21,7 @@
 		send(message)
 		input.val('')
 
-	slashCommand = (msg) ->
+	slashCommand = (msg, channel) ->
 		match = msg.match(/^\/([^\s]+)(?:\s+(.*))?$/m)
 		if(match?)
 			command = match[1].toLowerCase()
@@ -29,20 +29,20 @@
 			
 			if command is "join" or command is "j"
 				parts = param.split(' ')
-				channel = parts[0]
+				channelToJoin = parts[0]
 				password = parts[1]
 
-				channel = channel.replace /[^a-zA-Z0-9]/g, ''
+				channelToJoin = channelToJoin.replace /[^a-zA-Z0-9]/g, ''
 
-				Meteor.call 'commandJoin', channel, password, (err, joined) ->
+				Meteor.call 'commandJoin', channelToJoin, password, (err, joined) ->
 					console.log(joined)
 					if not joined
 						swal
 							title: 'ERROR' 
-							text: 'Could not join ' + channel
+							text: 'Could not join ' + channelToJoin
 
 					if joined
-						FlowRouter.go('/chan/' + channel);
+						FlowRouter.go('/chan/' + channelToJoin);
 
 			if command is "test"
 				swal
@@ -59,6 +59,14 @@
 
 			if command is "avatar"
 				Session.set 'uploadingavatar', "true"
+
+			if command is "topic"
+				topic = param
+				Meteor.call 'commandTopic', channel, topic, (err, set) ->
+					if not set
+						swal
+							title: 'ERROR' 
+							text: 'Could not change topic in ' + channel
 
 			if command is "help"
 				swal

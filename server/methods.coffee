@@ -113,6 +113,18 @@ Meteor.methods
 	commandBan: (channel, user) ->
 		console.log("trying to ban")
 
+	commandTopic: (channel, topic) ->
+		if not Meteor.userId()
+			throw new Meteor.Error('invalid-user', "[methods] sendMessage -> Invalid user")
+
+		#internalChannelId = channel.replace /[^a-zA-Z0-9]/g, ''
+		internalChannelId = channel.toLowerCase()
+		allowedToChangeTopic = Channels.findOne({ _id : internalChannelId, members : this.userId, operators: this.userId })
+
+		if allowedToChangeTopic?
+			Channels.update({_id: internalChannelId}, {$set : { topic: topic}})
+
+
 	commandSetAvatar: (avatar) ->
 		if not Meteor.userId()
 			throw new Meteor.Error('invalid-user', "invalid user")
