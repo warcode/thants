@@ -172,6 +172,31 @@ Meteor.methods
 		return false
 
 
+	commandOp: (channel, user) ->
+		console.log("trying to op " + user + " in " + channel)
+		if not Meteor.userId()
+			throw new Meteor.Error('invalid-user', "[methods] sendMessage -> Invalid user")
+			return false
+
+		console.log(this.userId)
+
+		permissionCheck = Channels.findOne({ _id : channel, members : this.userId, operators : this.userId })
+		if permissionCheck?
+			console.log("allowed to op")
+			userToOp = Meteor.users.findOne({ username: user },{ fields: {_id: 1 } })
+			userIdToOp = userToOp._id
+
+			console.log(userIdToOp)
+
+			alreadyOp = Channels.findOne({ _id : channel, operators : userIdToOp })
+			if not alreadyOp?
+				Channels.update({_id: channel}, { $push: { operators: userIdToOp } })
+				return true
+
+		return false
+
+
+
 	commandTopic: (channel, topic) ->
 		if not Meteor.userId()
 			throw new Meteor.Error('invalid-user', "[methods] sendMessage -> Invalid user")

@@ -6,6 +6,11 @@
 
 	newInput = (input, channel, msg) ->
 		console.log("new input: " + msg)
+
+		if msg is ""
+			input.val('')
+			return
+
 		if msg[0] is '/'
 			slashCommand(msg, channel)
 			input.val('')
@@ -52,6 +57,24 @@
 						swal
 							title: 'ERROR'
 							text: 'Could not leave ' + channel
+
+
+			if command is "op"
+				user = param
+				Meteor.call 'commandOp', channel, user, (err, opd) ->
+					if opd
+						swal
+							title: 'Complete'
+							text: 'User made operator'
+					if not opd
+						swal
+						title: 'ERROR'
+						text: 'Could not op ' + user
+
+			if command is "deop"
+				swal
+					title: 'ERROR' 
+					text: 'Not implemented'
 
 			if command is "ban"
 				user = param
