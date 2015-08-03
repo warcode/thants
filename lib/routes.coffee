@@ -5,6 +5,7 @@ FlowRouter.route '/chan/:id',
 
 		if chanExists?
 			Session.set 'channel', params.id
+			Session.set 'title', params.id
 			console.log("channel is " + params.id)
 		else
 			console.log("channel is library")
@@ -13,7 +14,7 @@ FlowRouter.route '/chan/:id',
 
 FlowRouter.notFound =
   subscriptions: ->
-  	
+
   action: ->
     FlowRouter.go '/chan/library'
     return

@@ -14,6 +14,6 @@ Meteor.startup ->
 		return
 
 	Deps.autorun ->
-		document.title = "thants : " + Session.get('channel')
+		document.title = "thants : " + Session.get('title')
 		return
 	return

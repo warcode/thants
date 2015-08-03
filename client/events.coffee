@@ -1,3 +1,6 @@
+@UpdateTitleMessage = ->
+	return
+
 Template.messages.onCreated ->
   instance = this
   instance.autorun ->
@@ -131,4 +134,24 @@ Template.message.onRendered ->
 
 	#gif play control
 	freezeframe.run()
+	UpdateTitleMessage()
 
+
+@UnreadCount = 0
+
+Template.body.onRendered ->
+	$(window).bind 'blur', ->
+		UpdateTitleMessage = ->
+			UnreadCount++
+			chan = Session.get('channel')
+			titleString = chan + ' (' + UnreadCount + ')'
+			Session.set 'title', titleString
+			return
+		return
+
+	$(window).bind 'focus', ->
+		UnreadCount = 0
+		Session.set 'title', Session.get 'channel'
+		UpdateTitleMessage = ->
+			return
+		return
