@@ -138,7 +138,7 @@ Template.message.onRendered ->
 	UpdateTitleMessage()
 
 
-@UnreadCount = 0
+UnreadCount = 0
 
 Template.body.onRendered ->
 	$(window).bind 'blur', ->
@@ -158,6 +158,7 @@ Template.body.onRendered ->
 		UnreadCount = 0
 		Session.set 'title', Session.get 'channel'
 		UpdateTitleMessage = ->
+			UnreadCount = 0
 			console.log("no title message update")
 			return
 
