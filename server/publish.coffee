@@ -36,5 +36,4 @@ Meteor.publish 'avatarsbychannel', (channel) ->
 	return Avatars.find({_id : { $in: members} })
 
 Meteor.publish 'userstatus', (channel) ->
-	instance = Channels.findOne({ _id : channel}, { fields: { members: 1 } })
-	return Meteor.users.find({ "status.online": true, _id : {$in: instance.members } }, { fields: { username: 1, 'status.online': 1, 'status.idle': 1} })
+	return Meteor.users.find({ "status.online": true, _id : {$in: Channels.findOne({ _id : channel}, { fields: { members: 1 } }).members } }, { fields: { username: 1, 'status.online': 1, 'status.idle': 1} })
