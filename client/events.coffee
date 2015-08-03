@@ -1,4 +1,5 @@
-@UpdateTitleMessage = ->
+UpdateTitleMessage = ->
+	console.log("not set at all")
 	return
 
 Template.messages.onCreated ->
@@ -141,17 +142,23 @@ Template.message.onRendered ->
 
 Template.body.onRendered ->
 	$(window).bind 'blur', ->
+		console.log("binding UpdateTitleMessage")
 		UpdateTitleMessage = ->
+			console.log("updating title message")
 			UnreadCount++
 			chan = Session.get('channel')
 			titleString = chan + ' (' + UnreadCount + ')'
 			Session.set 'title', titleString
+			console.log(Session.get 'title')
 			return
 		return
 
 	$(window).bind 'focus', ->
+		console.log("unbinding UpdateTitleMessage")
 		UnreadCount = 0
 		Session.set 'title', Session.get 'channel'
 		UpdateTitleMessage = ->
+			console.log("no title message update")
 			return
+
 		return
