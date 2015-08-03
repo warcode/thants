@@ -91,7 +91,8 @@ Template.header.helpers
 		channel = Session.get 'channel'
 		instance = Channels.findOne({_id : channel})
 		if instance?
-			online = Meteor.users.find({'status.online': true, 'status.idle': false, username: { $in: instance.who } })
+			online = Meteor.users.find({'status.online': true, username: { $in: instance.who } })
+			#online = Meteor.users.find({'status.online': true, 'status.idle': false, username: { $in: instance.who } })
 			return (x.username for x in online.fetch()).join(', ')
 
 Template.loginscreen.helpers
