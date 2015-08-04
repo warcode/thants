@@ -15,6 +15,10 @@ Template.header.onCreated ->
 		instance.subscribe('channels')
 		instance.subscribe('userstatus', Session.get('channel'))
 
+Template.messages.events
+	'click .message-container': (event) ->
+		$('.inputarea textarea').focus()
+
 Template.inputarea.events
 	'click .inputarea .send': (event) ->
 		input = $(event.currentTarget).siblings("textarea")
