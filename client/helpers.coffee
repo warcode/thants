@@ -47,8 +47,14 @@ Template.message.helpers
 			return data.avatar
 		return ""
 
+	messageId: ->
+		return this._id
+
 	formatContent: ->
 		content = this.text
+
+		if content[0] is ">"
+			content = "<span class=\"quote\">#{content}</span>"
 
 		if this.urls?
 			console.log("message has urls")
