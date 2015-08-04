@@ -25,6 +25,29 @@ Meteor.methods
 				urls: message.urls
 				time: now
 
+	editMessage: (message) ->
+		if not Meteor.userId()
+			throw new Meteor.Error('invalid-user', "invalid user")
+
+		user = Meteor.users.findOne Meteor.userId(), fields: username: 1
+
+		internalChannelId = message.channel.toLowerCase()
+		userId = Meteor.userId()
+
+		permissionCheck = Channels.findOne({ _id : internalChannelId, members : userId })
+
+		if permissionCheck?
+			console.log("allowed to send message")
+
+			now = new Date()
+			Messages.insert
+				userId : Meteor.userId()
+				user: user.username
+				channel: message.channel
+				text: message.text
+				urls: message.urls
+				time: now
+
 	commandJoin: (channel, password) ->
 		console.log("trying to join channel " + channel + " using password " + password)
 
@@ -207,6 +230,14 @@ Meteor.methods
 
 		if allowedToChangeTopic?
 			Channels.update({_id: internalChannelId}, {$set : { topic: topic}})
+			now = new Date()
+			Messages.insert
+				userId : "ANTS"
+				user: "ANTS"
+				channel: internalChannelId
+				text: "Topic was set to: " + topic
+				urls: [{url : ""}]
+				time: now
 
 
 	commandSetAvatar: (avatar) ->
