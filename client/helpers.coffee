@@ -81,6 +81,7 @@ Template.message.helpers
 			if picture?
 				content += "<img crossOrigin=\"Anonymous\" class=\"freezeframe\" style='max-width:750px; max-height:525px; width: auto; height: auto; padding-top: 5px;' src='" + picture[0] + "'></img>"
 			if webm?
+				content = content.replace('.gifv', '.webm')
 				content += "<video style='max-width:750px; max-height:525px; width: auto; height: auto; padding-top: 5px;' src='" + webm[0] + "' loop='' controls='' muted=''></video>"
 			if youtube?
 				content += "<iframe src='https://www.youtube.com/embed/"+youtube[1]+"?wmode=transparent&amp;jqoemcache=xd8Cb' width='425' height='349' allowfullscreen='true' allowscriptaccess='always' scrolling='no' frameborder='0' style='max-height: 525px; max-width: 750px; width: 500px; height: 410.588235294118px; padding-top: 5px;''></iframe>"
