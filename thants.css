@@ -396,3 +396,9 @@ body {
 .quote {
 	color: #789922;
 }
+
+.usermanager {
+	display: flex;
+	flex-direction: column;
+	flex-basis: 60vh;
+}

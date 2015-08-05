@@ -42,6 +42,7 @@ mizzao:user-status@0.6.5
 mobile-status-bar@1.0.3
 momentjs:moment@2.10.6
 mongo@1.1.0
+mrt:nprogress@0.1.0
 npm-bcrypt@0.7.8_2
 observe-sequence@1.0.6
 ordered-dict@1.0.3
@@ -54,6 +55,7 @@ retry@1.0.3
 routepolicy@1.0.5
 service-configuration@1.0.4
 session@1.1.0
+settinghead:auto-nprogress@1.0.0
 sha@1.0.3
 spacebars@1.0.6
 spacebars-compiler@1.0.6

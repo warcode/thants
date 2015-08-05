@@ -127,6 +127,13 @@
 					title: 'Commands' 
 					text:'/join channel password\n/leave\n/logout and /logoutall\n/avatar'
 
+			if command is "useradmin" or command is "manageusers"
+				Session.set('manageusers', "true")
+				console.log(Session.get 'manageusers')
+
+			if command is "useradminclose" or command is "manageusersclose"
+				Session.set('manageusers', "")
+
 
 
 	send = (message) ->

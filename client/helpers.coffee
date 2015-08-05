@@ -11,6 +11,16 @@ Template.body.helpers
 			return true
 		return false
 
+	managingUsers: ->
+		managing = Session.get 'manageusers'
+		#console.log(managing)
+		#permitted = Meteor.user().admin
+		#console.log(permitted)
+		if managing is "true"
+			return true
+		return false
+
+
 Template.header.helpers
   inChannel: -> 
   	channel = Session.get 'channel'
@@ -118,3 +128,7 @@ Template.menuleft.helpers
 		if this.toString() is channel.toString()
 			return "channel active"
 		return "channel"
+
+Template.usermanager.helpers
+	userList: ->
+		return Meteor.users.find({})
