@@ -406,3 +406,7 @@ body {
 .firefox-plz {
 	flex-direction: column !important;
 }
+
+.pre-render {
+	display: none !important;
+}

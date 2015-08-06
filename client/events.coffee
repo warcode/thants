@@ -149,6 +149,7 @@ Template.message.onRendered ->
 
 	#gif play control
 	freezeframe.run()
+	$(element).toggleClass('pre-render')
 	UpdateTitleMessage()
 
 
