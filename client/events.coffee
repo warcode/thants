@@ -2,6 +2,15 @@ UpdateTitleMessage = ->
 	console.log("not set at all")
 	return
 
+UpdateFavicon = (url)->
+	link = document.createElement('link')
+	link.type = 'image/x-icon'
+	link.rel = 'shortcut icon'
+	link.href = url
+	document.getElementsByTagName('head')[0].appendChild(link)
+	$('*[type="image/x-icon"]:not(:last-child)').remove()
+
+
 Template.messages.onCreated ->
   instance = this
   instance.autorun ->
@@ -149,11 +158,7 @@ Template.body.onRendered ->
 		console.log("binding UpdateTitleMessage")
 		UpdateTitleMessage = ->
 			console.log("updating title message")
-			link = document.createElement('link')
-			link.type = 'image/x-icon'
-			link.rel = 'shortcut icon'
-			link.href = '/green.ico?v=2'
-			document.getElementsByTagName('head')[0].appendChild(link)
+			UpdateFavicon("/green.ico?v=2")
 			UnreadCount++
 			chan = Session.get('channel')
 			titleString = chan + ' (' + UnreadCount + ')'
@@ -164,11 +169,7 @@ Template.body.onRendered ->
 
 	$(window).bind 'focus', ->
 		console.log("unbinding UpdateTitleMessage")
-		link = document.createElement('link')
-		link.type = 'image/x-icon'
-		link.rel = 'shortcut icon'
-		link.href = '/favicon.ico?v=2'
-		document.getElementsByTagName('head')[0].appendChild(link)
+		UpdateFavicon("/favicon.ico?v=2")
 		UnreadCount = 0
 		Session.set 'title', Session.get 'channel'
 		UpdateTitleMessage = ->
