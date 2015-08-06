@@ -402,3 +402,7 @@ body {
 	flex-direction: column;
 	flex-basis: 60vh;
 }
+
+.firefox-plz {
+	flex-direction: column !important;
+}

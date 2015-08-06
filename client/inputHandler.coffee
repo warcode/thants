@@ -134,6 +134,9 @@
 			if command is "useradminclose" or command is "manageusersclose"
 				Session.set('manageusers', "")
 
+			if command is "firefox" or command is "daveplz"
+				$('.message-container').toggleClass('firefox-plz')
+
 
 
 	send = (message) ->
