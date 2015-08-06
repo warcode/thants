@@ -3,6 +3,7 @@ UpdateTitleMessage = ->
 	return
 
 UpdateFavicon = (url)->
+	console.log("updating favoicon to " + url)
 	link = document.createElement('link')
 	link.type = 'image/x-icon'
 	link.rel = 'shortcut icon'
@@ -156,6 +157,7 @@ UnreadCount = 0
 Template.body.onRendered ->
 	$(window).bind 'blur', ->
 		console.log("binding UpdateTitleMessage")
+		Fav = this.UpdateFavicon
 		UpdateTitleMessage = ->
 			console.log("updating title message")
 			UpdateFavicon("/green.ico?v=2")
