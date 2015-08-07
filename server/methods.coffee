@@ -9,12 +9,21 @@ Meteor.methods
 		user = Meteor.users.findOne Meteor.userId(), fields: username: 1
 
 		internalChannelId = message.channel.toLowerCase()
+
+		if internalChannelId is "library"
+			return
+
 		userId = Meteor.userId()
 
 		permissionCheck = Channels.findOne({ _id : internalChannelId, members : userId })
 
 		if permissionCheck?
 			console.log("allowed to send message")
+
+			isEncrypted = false
+			if message.encrypted?
+				if message.encrypted is true
+					isEncrypted = true
 
 			now = new Date()
 			Messages.insert
@@ -24,6 +33,7 @@ Meteor.methods
 				text: message.text
 				urls: message.urls
 				time: now
+				encrypted: isEncrypted
 
 	editMessage: (message) ->
 		if not Meteor.userId()
@@ -48,7 +58,7 @@ Meteor.methods
 				urls: message.urls
 				time: now
 
-	commandJoin: (channel, password) ->
+	commandJoin: (channel, password, encryptedK) ->
 		console.log("trying to join channel " + channel + " using password " + password)
 
 		if not Meteor.userId()
@@ -86,16 +96,20 @@ Meteor.methods
 					console.log("correct password")
 					Meteor.users.update({_id: userId}, {$push: { 'profile.channels' : internalChannelId }})
 					Channels.update({_id: internalChannelId}, { $push: { members: userId, who: username } })
-					return true
+					channelInstance = Channels.findOne({_id: internalChannelId})
+					key = channelInstance.encryptedKey
+					return key
 			return false
 
 		if not existing? 
 			console.log("channel does not exist, creating it: " + channel + " with password: " + password)
 
 			hash = ""
+			encryptedKey = ""
 			if password?
 				salt = bcrypt.genSaltSync(10)
 				hash = bcrypt.hashSync(password, salt)
+				encryptedKey = encryptedK
 
 			Channels.update
 				_id: internalChannelId
@@ -108,7 +122,7 @@ Meteor.methods
 				banned: []
 				topic: "Welcome to #" + internalChannelId
 				passwordHash: hash
-				encryptedKey: ""
+				encryptedKey: encryptedKey
 				isLocked: false
 				isMuted: false
 			,

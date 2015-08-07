@@ -23,7 +23,25 @@
 		if urls?
 			message.urls = urls.map (url) -> url: url
 
-		send(message)
+		channelInstance = Channels.findOne({_id: channel})
+		if channelInstance.encryptedKey is ""
+			send(message)
+		else
+			console.log("channel is using encryption")
+			currentSecret = localStorage.getItem("thants.#{channel}.encryption")
+			if not currentSecret?
+				input.val('')
+				return
+			message.encrypted = true
+			message.text = CryptoJS.AES.encrypt(message.text, currentSecret).toString()
+			console.log("encrpyted input message")
+
+			if message.urls?
+				for urls in message.urls
+					urls.url = CryptoJS.AES.encrypt(urls.url, currentSecret).toString()
+				console.log("encrypted input urls")
+			send(message)
+
 		input.val('')
 
 	slashCommand = (msg, channel) ->
@@ -39,7 +57,18 @@
 
 				channelToJoin = channelToJoin.replace /[^a-zA-Z0-9]/g, ''
 
-				Meteor.call 'commandJoin', channelToJoin, password, (err, joined) ->
+				encryptedK = null
+				channelInstance = Channels.findOne({_id: channelToJoin})
+				console.log("channel instance: " + channelInstance)
+				if not channelInstance? and password?
+					console.log("channel does not exist, generating key material")
+					keyMaterial = Random.id()
+					keyMaterial = keyMaterial + channel
+					keyMaterial = CryptoJS.SHA256(keyMaterial).toString()
+					localStorage.setItem("thants.#{channelToJoin}.encryption", keyMaterial)
+					encryptedK = CryptoJS.AES.encrypt(keyMaterial, password).toString()
+
+				Meteor.call 'commandJoin', channelToJoin, password, encryptedK, (err, joined) ->
 					console.log(joined)
 					if not joined
 						swal
@@ -47,7 +76,14 @@
 							text: 'Could not join ' + channelToJoin
 
 					if joined
-						FlowRouter.go('/chan/' + channelToJoin)
+						if joined is true
+							FlowRouter.go('/chan/' + channelToJoin)
+						else
+							console.log("got encryption key from server" + joined)
+							key = CryptoJS.AES.decrypt(joined, password).toString(CryptoJS.enc.Utf8)
+							console.log("setting encryption key to " + key)
+							localStorage.setItem("thants.#{channelToJoin}.encryption", key)
+							FlowRouter.go('/chan/' + channelToJoin)
 
 			if command is "leave" or command is "quit"
 				Meteor.call 'commandLeave', channel, (err, left) ->
@@ -136,6 +172,13 @@
 
 			if command is "firefox" or command is "daveplz"
 				$('.message-container').toggleClass('firefox-plz')
+
+			if command is "invite"
+				Meteor.call 'commandInvite', channel, user, (err, set) ->
+					if not set
+						swal
+							title: 'ERROR' 
+							text: 'Could not invite user ' + user
 
 
 

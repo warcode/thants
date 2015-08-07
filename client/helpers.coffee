@@ -63,11 +63,33 @@ Template.message.helpers
 	formatContent: ->
 		content = this.text
 
+		if this.encrypted?
+			if this.encrypted is true
+				decrypted = ""
+				currentSecret = localStorage.getItem("thants.#{this.channel}.encryption")
+				if currentSecret?
+					decrypted = CryptoJS.AES.decrypt(this.text, currentSecret).toString(CryptoJS.enc.Utf8)
+
+				if decrypted is ""
+					content = "***"
+				else
+					content = decrypted
+		
+
 		if content[0] is ">"
 			content = "<span class=\"quote\">#{content}</span>"
 
 		if this.urls?
 			console.log("message has urls")
+			urlList = this.urls
+
+			if this.encrypted?
+				if this.encrypted is true
+					currentSecret = localStorage.getItem("thants.#{this.channel}.encryption")
+					if currentSecret?
+						for u in urlList
+							u.url = CryptoJS.AES.decrypt(u.url, currentSecret).toString(CryptoJS.enc.Utf8)
+
 			#linkify
 			for url in this.urls
 				content = content.replace url.url, "<a href=\"#{url.url}\" target=\"_new\">#{url.url}</a>"
@@ -106,8 +128,10 @@ Template.header.helpers
 	channelWho: ->
 		console.log("getting channel status")
 		channel = Session.get 'channel'
+		if channel is "library"
+			return ""
 		instance = Channels.findOne({_id : channel})
-		if instance?
+		if instance? and instance.who?
 			online = Meteor.users.find({'status.online': true, username: { $in: instance.who } })
 			#online = Meteor.users.find({'status.online': true, 'status.idle': false, username: { $in: instance.who } })
 			return (x.username for x in online.fetch()).join(', ')
@@ -125,7 +149,6 @@ Template.menuleft.helpers
 
 	activeChannel: ->
 		channel = Session.get 'channel'
-		console.log(this)
 		if this.toString() is channel.toString()
 			return "channel active"
 		return "channel"

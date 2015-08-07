@@ -1,4 +1,6 @@
 Meteor.startup ->
+	Meteor.subscribe('channelList')
+	Meteor.subscribe('users')
 	Tracker.autorun ->
 		if Meteor.userId()
 			try
