@@ -101,7 +101,7 @@ Template.message.helpers
 			youtube = firstUrl.match(/^https:\/\/\S*[youtube.com|youtu.be]\/watch\?\S*v=(\w*)\S*$/i)
 			imgur = firstUrl.match(/^https:\/\/\S*[imgur.com]\/(\w*)$/i)
 			if picture?
-				content += "<img crossOrigin=\"Anonymous\" class=\"freezeframe\" style='max-width:750px; max-height:525px; width: auto; height: auto; padding-top: 5px;' src='" + picture[0] + "'></img>"
+				content += "<img class=\"freezeframe\" style='max-width:750px; max-height:525px; width: auto; height: auto; padding-top: 5px;' src='" + picture[0] + "'></img>"
 			if webm?
 				webm[0] = webm[0].replace('.gifv', '.webm')
 				content += "<video style='max-width:750px; max-height:525px; width: auto; height: auto; padding-top: 5px;' src='" + webm[0] + "' loop='' controls='' muted=''></video>"
