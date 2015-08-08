@@ -137,8 +137,13 @@ Template.message.onRendered ->
 	timeCheck = (time - prevTime) > 300
 
 	if user?
-		if prevUser is user and not timeCheck
-			$(element).toggleClass('grouped')
+		firefox = $('.message-container.firefox-plz')
+		if firefox.length is 1
+			console.log("we are in firefox")
+			#do nothing
+		else
+			if prevUser is user and not timeCheck
+				$(element).toggleClass('grouped')
 
 	#highlight
 	username = Meteor.user().username

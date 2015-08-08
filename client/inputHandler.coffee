@@ -172,6 +172,10 @@
 
 			if command is "firefox" or command is "daveplz"
 				$('.message-container').toggleClass('firefox-plz')
+				firefox = $('.message-container.firefox-plz')
+				if firefox.length is 1
+					console.log("removing groupings")
+					$('.message').removeClass('grouped')
 
 			if command is "invite"
 				Meteor.call 'commandInvite', channel, user, (err, set) ->
