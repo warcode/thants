@@ -357,6 +357,7 @@ body {
     position: relative;
     width: 95vw;
     outline: none;
+    font-family: Lato, sans-serif;
 }
 
 .inputarea i {
