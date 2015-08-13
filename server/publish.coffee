@@ -5,7 +5,6 @@ Meteor.publish 'channels', ->
 	return Channels.find({ members : this.userId })
 
 Meteor.publish 'messages', (channel) ->
-	console.log("publishing channel " + channel)
 	if channel is "library"
 		return Messages.find({ channel : channel }, { limit: 10 })
 

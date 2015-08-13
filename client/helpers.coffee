@@ -165,8 +165,7 @@ Template.menuright.helpers
 
 	userIsOperator: ->
 		channel = Session.get 'channel'
-		userid = Meteor.user()._id
-		instance = Channels.findOne({_id : channel, operators: userid })
+		instance = Channels.findOne({_id : channel, operators: this._id })
 		if instance?
 			return "op"
 		return ""

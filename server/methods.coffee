@@ -47,8 +47,6 @@ Meteor.methods
 		permissionCheck = Channels.findOne({ _id : internalChannelId, members : userId })
 
 		if permissionCheck?
-			console.log("allowed to send message")
-
 			now = new Date()
 			Messages.insert
 				userId : Meteor.userId()
