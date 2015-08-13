@@ -126,7 +126,7 @@ Template.header.helpers
 			instance.members.length
 
 	channelWho: ->
-		console.log("getting channel status")
+		return ""
 		channel = Session.get 'channel'
 		if channel is "library"
 			return ""
@@ -152,6 +152,25 @@ Template.menuleft.helpers
 		if this.toString() is channel.toString()
 			return "channel active"
 		return "channel"
+
+Template.menuright.helpers
+	userList: ->
+		channel = Session.get 'channel'
+		if channel is "library"
+			return []
+		instance = Channels.findOne({_id : channel})
+		if instance? and instance.who?
+			#online = Meteor.users.find({'status.online': true, 'status.idle': false, username: { $in: instance.who } })
+			return Meteor.users.find({'status.online': true, username: { $in: instance.who } })
+
+	userIsOperator: ->
+		channel = Session.get 'channel'
+		userid = Meteor.user()._id
+		instance = Channels.findOne({_id : channel, operators: userid })
+		if instance?
+			return "op"
+		return ""
+
 
 Template.usermanager.helpers
 	userList: ->

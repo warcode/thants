@@ -23,6 +23,7 @@
             {{> messages}}
             {{> inputarea}}
         </div>
+        {{> menuright}}
     </div>
     {{/if}}
     {{#unless currentUser}}
@@ -67,6 +68,14 @@
     <div class="menuleft">
         {{#each channelList}}
             <div class="{{activeChannel}}" data-channel="{{this}}">#{{this}}</div>
+        {{/each}}
+    </div>
+</template>
+
+<template name="menuright">
+    <div class="menuright">
+        {{#each userList}}
+            <div class="user {{userIsOperator}}">{{this.username}}</div>
         {{/each}}
     </div>
 </template>

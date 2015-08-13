@@ -61,6 +61,11 @@
 				channelInstance = Channels.findOne({_id: channelToJoin})
 				console.log("channel instance: " + channelInstance)
 				if not channelInstance? and password?
+					if ([channelToJoin].some (word) -> ~password.indexOf word) or ([password].some (word) -> ~channelToJoin.indexOf word)
+						swal
+							title: 'ERROR'
+							text: 'Bad password'
+						return
 					console.log("channel does not exist, generating key material")
 					keyMaterial = Random.id()
 					keyMaterial = keyMaterial + channel

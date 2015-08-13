@@ -152,8 +152,7 @@ Template.message.onRendered ->
 	if (text.indexOf(username.toLowerCase()) > 0)
 		$(element).toggleClass('highlight')
 
-	#gif play control
-	freezeframe.run()
+	
 	$(element).toggleClass('pre-render')
 	UpdateTitleMessage()
 
