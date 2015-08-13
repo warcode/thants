@@ -161,7 +161,8 @@ Template.menuright.helpers
 		instance = Channels.findOne({_id : channel})
 		if instance? and instance.who?
 			#online = Meteor.users.find({'status.online': true, 'status.idle': false, username: { $in: instance.who } })
-			return Meteor.users.find({'status.online': true, username: { $in: instance.who } })
+			#check in the users channel list if they are in the channel!
+			return Meteor.users.find({'status.online': true, 'profile.channels': channel })
 
 	userIsOperator: ->
 		channel = Session.get 'channel'
