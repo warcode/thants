@@ -101,14 +101,14 @@ Template.message.helpers
 			youtube = firstUrl.match(/^https:\/\/\S*[youtube.com|youtu.be]\/watch\?\S*v=(\w*)\S*$/i)
 			imgur = firstUrl.match(/^https:\/\/\S*[imgur.com]\/(\w*)$/i)
 			if picture?
-				content += "<img class=\"freezeframe\" style='max-width:750px; max-height:525px; width: auto; height: auto; padding-top: 5px;' src='" + picture[0] + "'></img>"
+				content += "<img class=\"\" style='max-width:60vw; max-height:50vh; width: auto; height: auto; padding-top: 5px;' src='" + picture[0] + "'></img>"
 			if webm?
 				webm[0] = webm[0].replace('.gifv', '.webm')
-				content += "<video style='max-width:750px; max-height:525px; width: auto; height: auto; padding-top: 5px;' src='" + webm[0] + "' loop='' controls='' muted=''></video>"
+				content += "<video style='max-width:60vw; max-height:50vh; width: auto; height: auto; padding-top: 5px;' src='" + webm[0] + "' loop='' controls='' muted=''></video>"
 			if youtube?
-				content += "<iframe src='https://www.youtube.com/embed/"+youtube[1]+"?wmode=transparent&amp;jqoemcache=xd8Cb' width='425' height='349' allowfullscreen='true' allowscriptaccess='always' scrolling='no' frameborder='0' style='max-height: 525px; max-width: 750px; width: 500px; height: 410.588235294118px; padding-top: 5px;''></iframe>"
+				content += "<iframe src='https://www.youtube.com/embed/"+youtube[1]+"?wmode=transparent&amp;jqoemcache=xd8Cb' width='425' height='349' allowfullscreen='true' allowscriptaccess='always' scrolling='no' frameborder='0' style='max-width:60vw; max-height:50vh; width: 500px; height: 410.588235294118px; padding-top: 5px;''></iframe>"
 			if imgur?
-				content += "<img class=\"freezeframe\" style='max-width:750px; max-height:525px; width: auto; height: auto; padding-top: 5px;' src='https://i.imgur.com/" + imgur[1] + ".png'></img>"
+				content += "<img class=\"\" style='max-width:60vw; max-height:50vh; width: auto; height: auto; padding-top: 5px;' src='https://i.imgur.com/" + imgur[1] + ".png'></img>"
 
 		return content
 
