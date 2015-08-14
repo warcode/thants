@@ -5,7 +5,7 @@
 	editing = {}
 
 	newInput = (input, channel, msg) ->
-		console.log("new input: " + msg)
+		#console.log("new input: " + msg)
 
 		if msg is ""
 			input.val('')
@@ -16,6 +16,8 @@
 			input.val('')
 			return
 
+		msg = DOMPurify.sanitize(msg, {ALLOWED_TAGS: []})
+		
 		message = { _id: Random.id(), channel: channel, text: msg }
 
 		urls = msg.match /([A-Za-z]{3,9}):\/\/([-;:&=\+\$,\w]+@{1})?([-A-Za-z0-9\.]+)+:?(\d+)?((\/[-\+=!:~%\/\.@\,\w]+)?\??([-\+=&!:;%@\/\.\,\w]+)?#?([\w\/]+)?)?/g

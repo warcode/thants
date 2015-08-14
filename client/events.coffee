@@ -1,9 +1,7 @@
 UpdateTitleMessage = ->
-	console.log("not set at all")
 	return
 
 UpdateFavicon = (url)->
-	console.log("updating favoicon to " + url)
 	link = document.createElement('link')
 	link.type = 'image/x-icon'
 	link.rel = 'shortcut icon'

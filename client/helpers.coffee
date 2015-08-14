@@ -80,7 +80,6 @@ Template.message.helpers
 			content = "<span class=\"quote\">#{content}</span>"
 
 		if this.urls?
-			console.log("message has urls")
 			urlList = this.urls
 
 			if this.encrypted?
