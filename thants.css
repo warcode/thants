@@ -245,6 +245,10 @@ body {
 
 .header > span {
 	padding-bottom: 7px;
+	max-width: 60vw;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	flex-shrink: 0;
 }
 
 .message-container {
