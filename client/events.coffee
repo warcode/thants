@@ -135,14 +135,6 @@ Template.message.onRendered ->
 	timeCheck = (time - prevTime) > 300
 
 	if user?
-		firefox = $('.message-container.firefox-plz')
-		if firefox.length is 1
-			console.log("we are in firefox")
-			scroller = firefox
-			needToAdvanceScrollbar = ((scroller.scrollHeight - (scroller.scrollTop)) is scroller.clientHeight)
-			if needToAdvanceScrollbar
-				scroller.scrollTop = scroller.scrollHeight - (scroller.clientHeight)
-
 		if prevUser is user and not timeCheck
 			$(element).toggleClass('grouped')
 
@@ -155,6 +147,13 @@ Template.message.onRendered ->
 
 	
 	$(element).toggleClass('pre-render')
+
+	firefox = $('.message-container.firefox-plz')
+	if firefox.length is 1
+		trueHeight = firefox[0].scrollHeight - firefox.height() - $(element).height() - 30
+		if (firefox.scrollTop() >= trueHeight)
+			firefox.scrollTop(9999999999)
+
 	UpdateTitleMessage()
 
 
