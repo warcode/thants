@@ -462,9 +462,11 @@ body {
 	flex-basis: 60vh;
 }
 
+/*FIREFOX*/
 .firefox-plz {
-	flex-direction: column !important;
+	justify-content: flex-end;
 }
+/*END FIREFOX*/
 
 .pre-render {
 	display: none !important;

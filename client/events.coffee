@@ -138,10 +138,13 @@ Template.message.onRendered ->
 		firefox = $('.message-container.firefox-plz')
 		if firefox.length is 1
 			console.log("we are in firefox")
-			#do nothing
-		else
-			if prevUser is user and not timeCheck
-				$(element).toggleClass('grouped')
+			scroller = firefox
+			needToAdvanceScrollbar = ((scroller.scrollHeight - (scroller.scrollTop)) is scroller.clientHeight)
+			if needToAdvanceScrollbar
+				scroller.scrollTop = scroller.scrollHeight - (scroller.clientHeight)
+
+		if prevUser is user and not timeCheck
+			$(element).toggleClass('grouped')
 
 	#highlight
 	username = Meteor.user().username
@@ -183,3 +186,11 @@ Template.body.onRendered ->
 			return
 
 		return
+
+##FIREFOX
+Template.messages.onRendered ->
+	firefox = localStorage.getItem('thants.workaround.isFirefox')
+	if firefox is "yes"
+		console.log("we are in firefox")
+		$('.message-container').addClass('firefox-plz')
+##END FIREFOX

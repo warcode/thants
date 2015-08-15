@@ -17,7 +17,7 @@
 			return
 
 		msg = DOMPurify.sanitize(msg, {ALLOWED_TAGS: []})
-		
+
 		message = { _id: Random.id(), channel: channel, text: msg }
 
 		urls = msg.match /([A-Za-z]{3,9}):\/\/([-;:&=\+\$,\w]+@{1})?([-A-Za-z0-9\.]+)+:?(\d+)?((\/[-\+=!:~%\/\.@\,\w]+)?\??([-\+=&!:;%@\/\.\,\w]+)?#?([\w\/]+)?)?/g
@@ -178,11 +178,7 @@
 				Session.set('manageusers', "")
 
 			if command is "firefox" or command is "daveplz"
-				$('.message-container').toggleClass('firefox-plz')
-				firefox = $('.message-container.firefox-plz')
-				if firefox.length is 1
-					console.log("removing groupings")
-					$('.message').removeClass('grouped')
+				localStorage.setItem('thants.workaround.isFirefox', 'yes')
 
 			if command is "invite"
 				Meteor.call 'commandInvite', channel, user, (err, set) ->
