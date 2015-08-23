@@ -99,12 +99,15 @@ Template.message.helpers
 
 			#embed first url only
 			firstUrl = this.urls[0].url
-			picture = firstUrl.match(/^(https:\/\/\S*\.(?:jpe?g|gif|png))$/i)
+			picture = firstUrl.match(/^(https:\/\/\S*\.(?:jpe?g|png))$/i)
+			gif = firstUrl.match(/^(https:\/\/\S*\.(?:gif))$/i)
 			webm = firstUrl.match(/^(https:\/\/\S*\.(?:webm|gifv))$/i)
 			youtube = firstUrl.match(/^https:\/\/\S*(youtube\.com|youtu\.be)\/watch\?\S*v=(\w*)\S*$/i)
 			imgur = firstUrl.match(/^https:\/\/\S*[\.]?(imgur\.com)\/(\w*)$/i)
 			if picture?
 				content += "<img class=\"\" style='max-width:60vw; max-height:50vh; width: auto; height: auto; padding-top: 5px;' src='" + picture[0] + "'></img>"
+			if gif?
+				content += "<div class=\"embed-gif\"><div class=\"embed-gif-text\">[Hover to play]</div><img class=\"\" src='" + gif[0] + "'></img></div>"
 			if webm?
 				webm[0] = webm[0].replace('.gifv', '.webm')
 				content += "<video style='max-width:60vw; max-height:50vh; width: auto; height: auto; padding-top: 5px;' src='" + webm[0] + "' loop='' controls='' muted=''></video>"

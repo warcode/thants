@@ -471,3 +471,16 @@ body {
 .pre-render {
 	display: none !important;
 }
+
+.embed-gif img {
+	max-width:60vw;
+	max-height:50vh;
+	width: auto;
+	height: auto;
+	padding-top: 5px;
+	visibility: hidden;
+}
+
+.embed-gif:hover img {
+	visibility: visible;
+}
