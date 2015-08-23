@@ -44,7 +44,11 @@ Template.message.helpers
 		return moment(this.time).format("X")
 
 	formatTime: ->
-		return moment(this.time).format("HH:mm:ss");
+		return if moment().diff(this.time, 'hours') > 24 then moment(this.time).format("HH:mm:ss") + ", " +moment(this.time).fromNow() else moment(this.time).format("HH:mm:ss")
+		#format("YYYY-MM-DD HH:mm:ss")
+
+	formatTimeTitle: ->
+		return moment(this.time).format("YYYY-MM-DD HH:mm:ss")
 
 	userClass: ->
 		if this.user is 'ANTS'
