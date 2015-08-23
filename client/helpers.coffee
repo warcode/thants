@@ -56,6 +56,8 @@ Template.message.helpers
 		return "user"
 
 	avatar: ->
+		if this.user is 'ANTS'
+			return '/thants_active.png?v=2'
 		data = Avatars.findOne({ username: this.user })
 		if data?
 			return data.avatar
