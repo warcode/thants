@@ -1,4 +1,4 @@
-thants
+thants ![thants-image](https://cdn.jsdelivr.net/emojione/assets/png/1F41C.png?v=1.2.4)
 =========
 
 Simple chat made in meteor.
