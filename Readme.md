@@ -4,6 +4,8 @@ thants
 Simple chat made in meteor.
 
 
+Emoji set designed and offered free by http://emojione.com
+
 
 License
 -------

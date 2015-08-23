@@ -165,7 +165,7 @@ Template.body.onRendered ->
 		Fav = this.UpdateFavicon
 		UpdateTitleMessage = ->
 			console.log("updating title message")
-			UpdateFavicon("/green.ico?v=2")
+			UpdateFavicon("/thants_active.png?v=2")
 			UnreadCount++
 			chan = Session.get('channel')
 			titleString = chan + ' (' + UnreadCount + ')'
@@ -176,7 +176,7 @@ Template.body.onRendered ->
 
 	$(window).bind 'focus', ->
 		console.log("unbinding UpdateTitleMessage")
-		UpdateFavicon("/favicon.ico?v=2")
+		UpdateFavicon("/thants.png?v=2")
 		UnreadCount = 0
 		Session.set 'title', Session.get 'channel'
 		UpdateTitleMessage = ->

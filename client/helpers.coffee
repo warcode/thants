@@ -82,6 +82,9 @@ Template.message.helpers
 
 		if content[0] is ">"
 			content = "<span class=\"quote\">#{content}</span>"
+		else
+			content = "<span class=\"\">#{content}</span>"
+
 
 		if this.urls?
 			urlList = this.urls
