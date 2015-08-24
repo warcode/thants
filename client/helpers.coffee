@@ -13,9 +13,6 @@ Template.body.helpers
 
 	managingUsers: ->
 		managing = Session.get 'manageusers'
-		#console.log(managing)
-		#permitted = Meteor.user().admin
-		#console.log(permitted)
 		if managing is "true"
 			return true
 		return false

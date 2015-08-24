@@ -338,6 +338,7 @@ body {
 	    -ms-flex-direction: column;
 	        flex-direction: column;
 	margin-left: calc(1vw/1.5);
+	overflow-x: hidden;
 }
 
 .message-header {
