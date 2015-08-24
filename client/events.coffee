@@ -165,7 +165,7 @@ Template.body.onRendered ->
 		Fav = this.UpdateFavicon
 		UpdateTitleMessage = ->
 			console.log("updating title message")
-			UpdateFavicon("/thants_active.png?v=2")
+			UpdateFavicon("/thants_newmessages.png?v=2")
 			UnreadCount++
 			chan = Session.get('channel')
 			titleString = chan + ' (' + UnreadCount + ')'
