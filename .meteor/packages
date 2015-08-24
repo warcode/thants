@@ -8,6 +8,7 @@ meteor-platform
 coffeescript
 accounts-password
 npm-bcrypt
+nimble:restivus
 jparker:crypto-aes
 jparker:crypto-sha256
 mizzao:user-status

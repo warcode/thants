@@ -57,11 +57,8 @@ Template.message.helpers
 
 	avatar: ->
 		if this.user is 'ANTS'
-			return '/thants_active.png?v=2'
-		data = Avatars.findOne({ username: this.user })
-		if data?
-			return data.avatar
-		return ""
+			return '/thants_active.png'
+		return "/api/avatars/#{this.user}.png"
 
 	messageId: ->
 		return this._id
