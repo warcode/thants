@@ -104,7 +104,7 @@ Template.message.helpers
 			youtube = firstUrl.match(/^https:\/\/\S*(youtube\.com|youtu\.be)\/watch\?\S*v=(\w*)\S*$/i)
 			imgur = firstUrl.match(/^https:\/\/\S*[\.]?(imgur\.com)\/(\w*)$/i)
 			if picture?
-				content += "<img class=\"\" style='max-width:60vw; max-height:50vh; width: auto; height: auto; padding-top: 5px;' src='" + picture[0] + "'></img>"
+				content += "<div><img class=\"\" style='max-width:60vw; max-height:50vh; width: auto; height: auto; padding-top: 5px;' src='" + picture[0] + "'></img></div>"
 			if gif?
 				content += "<div class=\"embed-gif\"><div class=\"embed-gif-text\">[Hover to play]</div><img class=\"\" src='" + gif[0] + "'></img></div>"
 			if webm?
