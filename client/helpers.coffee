@@ -124,6 +124,11 @@ Template.header.helpers
 		if instance?
 			instance.topic
 
+	channelCurrent: ->
+		channel = Session.get 'channel'
+		instance = Channels.findOne({_id : channel})
+		return Meteor.users.find({'status.online': true, username: { $in: instance.who } }).count()
+
 	channelCount: ->
 		channel = Session.get 'channel'
 		instance = Channels.findOne({_id : channel})
