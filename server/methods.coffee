@@ -267,3 +267,15 @@ Meteor.methods
 				avatar: avatar
 			,
 				upsert: true
+
+	commandNuke: (channel, confirm) ->
+		console.log("trying to nuke")
+		if not Meteor.userId()
+			throw new Meteor.Error('invalid-user', "[methods] sendMessage -> Invalid user")
+			return false
+
+		if channel is confirm and Meteor.user().admin
+			Messages.remove
+				channel: channel
+		else
+			return false

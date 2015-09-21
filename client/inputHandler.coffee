@@ -144,8 +144,13 @@
 				Meteor.logout()
 				console.log("logging out")
 
+			if command is "logoutother" or command is "logoffother"
+				Meteor.logoutOtherClients()
+				console.log("logging out all")
+
 			if command is "logoutall" or command is "logoffall"
 				Meteor.logoutOtherClients()
+				Meteor.logout()
 				console.log("logging out all")
 
 			if command is "avatar"
@@ -186,6 +191,14 @@
 						swal
 							title: 'ERROR' 
 							text: 'Could not invite user ' + user
+
+			if command is "nuke"
+				chanName = param
+				Meteor.call 'commandNuke', channel, chanName, (err, nuked) ->
+					if not nuked
+						swal
+							title: 'ERROR' 
+							text: 'Could not nuke channel'
 
 
 
