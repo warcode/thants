@@ -76,7 +76,7 @@
 <template name="menuright">
     <div class="menuright">
         {{#each userList}}
-            <div class="user {{userIsOperator}}">{{this.username}}</div>
+            <div class="user {{userIsOperator}} {{userIsAway}}">{{this.username}}</div>
         {{/each}}
     </div>
 </template>

@@ -181,6 +181,14 @@ Template.menuright.helpers
 			return "op"
 		return ""
 
+	userIsAway: ->
+		if not Meteor.user().admin
+			return ""
+		if this.status.idle
+			return "idle"
+		else
+			return "notidle"
+
 
 Template.usermanager.helpers
 	userList: ->

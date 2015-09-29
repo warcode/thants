@@ -191,6 +191,10 @@ body {
 	text-overflow: ellipsis;
 }
 
+.menuright .user.idle {
+	opacity: 0.5;
+}
+
 .menuright .user.op::before {
 	font-size: 60%;
 	content: "!";

@@ -15,10 +15,18 @@ Template.messages.onCreated ->
   instance.autorun ->
   	instance.subscribe('messages', Session.get('channel'))
 
-Template.header.onCreated ->
+#Template.header.onCreated ->
+#	instance = this
+#	instance.autorun ->
+		
+Template.menuleft.onCreated ->
 	instance = this
 	instance.autorun ->
 		instance.subscribe('channels')
+
+Template.menuright.onCreated ->
+	instance = this
+	instance.autorun ->
 		instance.subscribe('userstatus', Session.get('channel'))
 
 Template.messages.events
