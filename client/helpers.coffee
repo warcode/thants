@@ -181,7 +181,7 @@ Template.menuright.helpers
 			return "op"
 		return ""
 
-	userIsAway: ->
+	userIsIdle: ->
 		if not Meteor.user().admin
 			return ""
 		if this.status.idle

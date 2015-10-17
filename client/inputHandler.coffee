@@ -4,6 +4,13 @@
 	input = {}
 	editing = {}
 
+
+	sanityCheck = (msg) ->
+		console.log("sanity check")
+		sane = msg.replace(/[\.]{2,}/g , ".")
+		sane = msg.replace(/[xX]{1,}[dD]{1,}/g, ">2015")
+		return sane
+
 	newInput = (input, channel, msg) ->
 		#console.log("new input: " + msg)
 
@@ -17,6 +24,7 @@
 			return
 
 		msg = DOMPurify.sanitize(msg, {ALLOWED_TAGS: []})
+		msg = sanityCheck(msg)
 
 		message = { _id: Random.id(), channel: channel, text: msg }
 
