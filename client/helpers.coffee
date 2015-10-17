@@ -76,11 +76,13 @@ Template.message.helpers
 					content = decrypted
 		
 
+		content = content.replace /\s[@][a-zA-Z0-9]{1,}\s/g , (match) ->
+			match.replace '@', ''
+
 		if content[0] is ">"
 			content = "<span class=\"quote\">#{content}</span>"
 		else
 			content = "<span class=\"\">#{content}</span>"
-
 
 		if this.urls?
 			urlList = this.urls
