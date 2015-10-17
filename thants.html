@@ -119,9 +119,13 @@
 
 <template name="inputarea">
 <div class="inputarea">
-    <textarea autofocus dir="auto" name="msg" class="input-message" tabindex="1"></textarea>
+    {{#textareaAutocomplete autofocus="" name="msg" class="input-message" tabindex="1" placeholder="input here" settings=settings}}{{textAreaInit}}{{/textareaAutocomplete}}
     <i class="send fa fa-paper-plane-o fa-lg" title="Send Message"></i>
 </div>
+</template>
+
+<template name="autoPill">
+  {{username}}
 </template>
 
 <template name="avatarupload">

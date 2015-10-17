@@ -17,6 +17,7 @@ cfs:http-methods@0.0.30
 check@1.0.6
 coffeescript@1.0.9
 cosmos:browserify@0.5.1
+dandv:caret-position@2.1.1
 ddp@1.2.2
 ddp-client@1.2.1
 ddp-common@1.2.1
@@ -58,6 +59,7 @@ meteor-base@1.0.1
 meteorspark:util@0.2.0
 minifiers@1.1.7
 minimongo@1.0.9
+mizzao:autocomplete@0.5.1
 mizzao:timesync@0.3.3
 mizzao:user-status@0.6.5
 mobile-experience@1.0.1

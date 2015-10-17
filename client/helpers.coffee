@@ -193,3 +193,27 @@ Template.menuright.helpers
 Template.usermanager.helpers
 	userList: ->
 		return Meteor.users.find({})
+
+Template.inputarea.helpers
+	settings: ->
+		channel = Session.get 'channel'
+		{
+			position: 'top'
+			limit: 5
+			rules: [{
+				token: '@'
+				collection: Meteor.users
+				filter: {'status.online': true, 'profile.channels': channel }
+				field: 'username'
+				template: Template.autoPill
+			}
+			{
+				token: '¤'
+				collection: Meteor.users
+				filter: {'status.online': true, 'profile.channels': channel }
+				field: 'username'
+				template: Template.autoPill
+			}]
+		}
+	textAreaInit: ->
+		return ""
