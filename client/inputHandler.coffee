@@ -7,8 +7,9 @@
 
 	sanityCheck = (msg) ->
 		console.log("sanity check")
-		sane = msg.replace(/[\.]{2,}/g , ".")
-		sane = msg.replace(/[xX]{1,}[dD]{1,}/g, ">2015")
+		sane = msg
+		sane = sane.replace(/[\.]{2,}/g , ".")
+		sane = sane.replace(/[xX]{1,}[dD]{1,}/g, ">2015")
 		return sane
 
 	newInput = (input, channel, msg) ->
