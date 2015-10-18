@@ -23,6 +23,7 @@ Template.menuleft.onCreated ->
 	instance = this
 	instance.autorun ->
 		instance.subscribe('channels')
+		instance.subscribe('unread')
 
 Template.menuright.onCreated ->
 	instance = this
@@ -31,6 +32,7 @@ Template.menuright.onCreated ->
 
 Template.messages.events
 	'click .message-container': (event) ->
+		Meteor.call 'readChannel', Session.get 'channel'
 		$('.inputarea textarea').focus()
 
 Template.inputarea.events
@@ -58,6 +60,7 @@ Template.menuleft.events
 		channel = '/chan/' + clicked.attr('data-channel')
 		console.log(channel)
 		FlowRouter.go channel
+		Meteor.call 'readChannel', Session.get 'channel'
 
 
 Template.login.events
@@ -167,7 +170,7 @@ UnreadCount = 0
 
 Template.body.onRendered ->
 	$(window).bind 'blur', ->
-		console.log("binding UpdateTitleMessage")
+		#console.log("binding UpdateTitleMessage")
 		Fav = this.UpdateFavicon
 		UpdateTitleMessage = ->
 			console.log("updating title message")
@@ -181,7 +184,8 @@ Template.body.onRendered ->
 		return
 
 	$(window).bind 'focus', ->
-		console.log("unbinding UpdateTitleMessage")
+		Meteor.call 'readChannel', Session.get 'channel'
+		#console.log("unbinding UpdateTitleMessage")
 		UpdateFavicon("/thants.png?v=2")
 		UnreadCount = 0
 		Session.set 'title', Session.get 'channel'

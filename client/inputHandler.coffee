@@ -9,7 +9,7 @@
 		console.log("sanity check")
 		sane = msg
 		sane = sane.replace(/[\.]{2,}/g , ".")
-		sane = sane.replace(/[xX]{1,}[dD]{1,}/g, ">2015")
+		sane = sane.replace(/[xX]{1,}[dD]{1,}/g, "ü")
 		return sane
 
 	newInput = (input, channel, msg) ->

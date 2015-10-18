@@ -150,6 +150,10 @@ body {
 	color: #f8f8f2;
 }
 
+.menuleft .channel.unread {
+	color: red;
+}
+
 
 .menuright {
 	/*background-color: #044974;*/

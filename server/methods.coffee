@@ -18,7 +18,7 @@ Meteor.methods
 		permissionCheck = Channels.findOne({ _id : internalChannelId, members : userId })
 
 		if permissionCheck?
-			console.log("allowed to send message")
+			#console.log("allowed to send message")
 
 			isEncrypted = false
 			if message.encrypted?
@@ -34,6 +34,15 @@ Meteor.methods
 				urls: message.urls
 				time: now
 				encrypted: isEncrypted
+
+			Channels.update
+				_id: internalChannelId
+			,
+				{ $set:
+					{
+						lastMessageTimestamp: now
+					}
+				}
 
 	editMessage: (message) ->
 		if not Meteor.userId()
@@ -83,6 +92,7 @@ Meteor.methods
 				console.log("not locked")
 				if existing.passwordHash is ""
 					console.log("no password exists")
+					now = new Date()
 					Meteor.users.update({_id: userId}, {$push: { 'profile.channels' : internalChannelId }})
 					Channels.update({_id: internalChannelId}, { $push: { members: userId, who: username } })
 					return true
@@ -92,6 +102,7 @@ Meteor.methods
 
 				if bcrypt.compareSync(password, existing.passwordHash)
 					console.log("correct password")
+					now = new Date()
 					Meteor.users.update({_id: userId}, {$push: { 'profile.channels' : internalChannelId }})
 					Channels.update({_id: internalChannelId}, { $push: { members: userId, who: username } })
 					channelInstance = Channels.findOne({_id: internalChannelId})
@@ -141,7 +152,7 @@ Meteor.methods
 
 	commandLeave: (channel) ->
 		console.log("trying to leave channel")
-		if not Meteor.userId()			
+		if not Meteor.userId()
 			throw new Meteor.Error('invalid-user', "[methods] sendMessage -> Invalid user")
 			return false
 
@@ -174,7 +185,7 @@ Meteor.methods
 		permissionCheck = Channels.findOne({ _id : channel, members : this.userId, operators : this.userId })
 
 		if permissionCheck?
-			console.log("allowed to ban")
+			#console.log("allowed to ban")
 			userToBan = Meteor.users.findOne({ username: user },{ fields: {_id: 1 } })
 			userIdToBan = userToBan._id
 
@@ -198,7 +209,7 @@ Meteor.methods
 		permissionCheck = Channels.findOne({ _id : channel, members : this.userId, operators : this.userId })
 
 		if permissionCheck?
-			console.log("allowed to unban")
+			#console.log("allowed to unban")
 			userToUnBan = Meteor.users.findOne({ username: user },{ fields: {_id: 1 } })
 			userIdToUnBan = userToUnBan._id
 			Channels.update({_id: channel}, { $pull: { banned: userIdToUnBan } })
@@ -217,7 +228,7 @@ Meteor.methods
 
 		permissionCheck = Channels.findOne({ _id : channel, members : this.userId, operators : this.userId })
 		if permissionCheck?
-			console.log("allowed to op")
+			#console.log("allowed to op")
 			userToOp = Meteor.users.findOne({ username: user },{ fields: {_id: 1 } })
 			userIdToOp = userToOp._id
 
@@ -279,3 +290,26 @@ Meteor.methods
 				channel: channel
 		else
 			return false
+
+	readChannel: (channel) ->
+		#console.log("read channel: " + channel)
+		now = new Date()
+
+		read = Unread.findOne({_id : this.userId})
+		if !read?		
+			Unread.update
+				user : this.userId
+				channel : channel
+			,
+				user : this.userId
+				channel : channel
+				lastread : now
+			,
+				upsert: true
+
+		Unread.update
+			user : this.userId
+			channel : channel
+		,
+			$set :
+				lastread : now

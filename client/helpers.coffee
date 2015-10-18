@@ -129,6 +129,8 @@ Template.header.helpers
 	channelCurrent: ->
 		channel = Session.get 'channel'
 		instance = Channels.findOne({_id : channel})
+		if !instance?
+			return 0
 		return Meteor.users.find({'status.online': true, username: { $in: instance.who } }).count()
 
 	channelCount: ->
@@ -164,6 +166,20 @@ Template.menuleft.helpers
 		if this.toString() is channel.toString()
 			return "channel active"
 		return "channel"
+
+	unreadChannel: ->
+		current = this.toString()
+		if current is Session.get 'channel'
+			return ""
+		channel = Channels.findOne({_id : current})
+		read = Unread.findOne({ channel : current})
+		if !read?
+			return "unread"
+		if read.lastread < channel.lastMessageTimestamp
+			return "unread"
+		return ""
+
+
 
 Template.menuright.helpers
 	userList: ->
