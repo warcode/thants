@@ -19,6 +19,10 @@ Meteor.publish 'messages', (channel) ->
 
 Meteor.publish 'users', ->
 	currentUser = Meteor.users.findOne({_id: this.userId})
+
+	if !currentUser?
+		return
+
 	if currentUser.admin is true
 		return Meteor.users.find({ _id: this.userId }, {fields: {_id: 1, username: 1, luck: 1, profile: 1, admin: 1, 'status.online': 1, 'status.idle': 1, 'status.userAgent': 1}})
 	return Meteor.users.find({ _id: this.userId }, {fields: {_id: 1, username: 1, luck: 1, profile: 1, 'status.online': 1}})
@@ -26,6 +30,10 @@ Meteor.publish 'users', ->
 
 Meteor.publish 'userstatus', (channel) ->
 	currentUser = Meteor.users.findOne({_id: this.userId})
+
+	if !currentUser?
+		return
+		
 	if currentUser.admin is true
 		return Meteor.users.find({ "status.online": true}, { fields: { username: 1, admin: 1, 'status.online': 1, 'status.idle': 1, 'profile.channels': 1} })	
 	#_id : {$in: Channels.findOne({ _id : channel}, { fields: { members: 1 } }).members } }

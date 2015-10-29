@@ -19,6 +19,7 @@ spacebars
 check
 coffeescript
 accounts-password
+http
 npm-bcrypt
 nimble:restivus
 jparker:crypto-aes

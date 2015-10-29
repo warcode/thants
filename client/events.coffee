@@ -173,13 +173,13 @@ Template.body.onRendered ->
 		#console.log("binding UpdateTitleMessage")
 		Fav = this.UpdateFavicon
 		UpdateTitleMessage = ->
-			console.log("updating title message")
+			#console.log("updating title message")
 			UpdateFavicon("/thants_newmessages.png?v=2")
 			UnreadCount++
 			chan = Session.get('channel')
 			titleString = chan + ' (' + UnreadCount + ')'
 			Session.set 'title', titleString
-			console.log(Session.get 'title')
+			#console.log(Session.get 'title')
 			return
 		return
 
@@ -191,7 +191,7 @@ Template.body.onRendered ->
 		Session.set 'title', Session.get 'channel'
 		UpdateTitleMessage = ->
 			UnreadCount = 0
-			console.log("no title message update")
+			#console.log("no title message update")
 			return
 
 		return

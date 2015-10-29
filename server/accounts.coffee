@@ -17,4 +17,7 @@ Accounts.onCreateUser (options, user) ->
 	user.profile.channels = [ "library" ]
 	Channels.update({_id: 'library'}, { $push: { members: user._id, who: user.username } })
 
+	if Meteor.settings.pushover.use is "yes"
+		HTTP.call("POST", "https://api.pushover.net/1/messages.json", { params: { token: Meteor.settings.pushover.token, user: Meteor.settings.pushover.deliverygroup, message: "User registered: " + user.username }  })
+
 	user
