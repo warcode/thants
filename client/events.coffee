@@ -9,6 +9,15 @@ UpdateFavicon = (url)->
 	document.getElementsByTagName('head')[0].appendChild(link)
 	$('*[type="image/x-icon"]:not(:last-child)').remove()
 
+SendNotification = (msg) ->
+	console.log("what")
+	if Notification.permission != 'granted'
+		Notification.requestPermission()
+	else
+		notification = new Notification(msg,
+    		icon: "/thants.png?v=2"
+			body: msg)
+
 
 Template.messages.onCreated ->
   instance = this
@@ -153,7 +162,6 @@ Template.message.onRendered ->
 	text = content.html().toLowerCase()
 	if (text.indexOf(username.toLowerCase()) > 0)
 		$(element).toggleClass('highlight')
-
 	
 	$(element).toggleClass('pre-render')
 
