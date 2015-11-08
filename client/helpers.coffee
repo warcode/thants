@@ -193,6 +193,7 @@ Template.menuleft.helpers
 				UnreadCount++
 				titleString = chan + ' (' + UnreadCount + ')'
 				Session.set 'title', titleString
+				return ""
 			return "unread"
 		if read.lastread < channel.lastMessageTimestamp
 			if current is chan
@@ -200,6 +201,7 @@ Template.menuleft.helpers
 				UnreadCount++
 				titleString = chan + ' (' + UnreadCount + ')'
 				Session.set 'title', titleString
+				return ""
 			return "unread"
 
 		if current is chan
