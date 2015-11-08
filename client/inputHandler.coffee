@@ -214,7 +214,7 @@
 	send = (message) ->
 		console.log("sending message")
 		Meteor.call 'sendMessage', message
-		#Meteor.call 'readChannel', Session.get 'channel'
+		Meteor.call 'readChannel', Session.get 'channel'
 
 	newInput: newInput
 	send: send
