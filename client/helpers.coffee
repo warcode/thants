@@ -1,3 +1,16 @@
+UnreadCount = 0
+
+UpdateFavicon = (url)->
+	console.log("updating favicon")
+	console.log(url)
+	link = document.createElement('link')
+	link.type = 'image/x-icon'
+	link.rel = 'shortcut icon'
+	link.href = url
+	$('*[type="image/x-icon"]').remove()
+	document.getElementsByTagName('head')[0].appendChild(link)
+	#$('*[type="image/x-icon"]:not(:last-child)').remove()
+
 Template.body.helpers
 	uploadingAvatar: ->
 		uploading = Session.get 'uploadingavatar'
@@ -169,14 +182,30 @@ Template.menuleft.helpers
 
 	unreadChannel: ->
 		current = this.toString()
-		if current is Session.get 'channel'
-			return ""
+		#if current is Session.get 'channel'
+		#	return ""
 		channel = Channels.findOne({_id : current})
 		read = Unread.findOne({ channel : current})
+		chan = Session.get('channel')
 		if !read?
+			if current is chan
+				UpdateFavicon("/thants_newmessages.png?v=2")
+				UnreadCount++
+				titleString = chan + ' (' + UnreadCount + ')'
+				Session.set 'title', titleString
 			return "unread"
 		if read.lastread < channel.lastMessageTimestamp
+			if current is chan
+				UpdateFavicon("/thants_newmessages.png?v=2")
+				UnreadCount++
+				titleString = chan + ' (' + UnreadCount + ')'
+				Session.set 'title', titleString
 			return "unread"
+
+		if current is chan
+			UpdateFavicon("/thants.png?v=2")
+			UnreadCount = 0
+			Session.set 'title', Session.get 'channel'
 		return ""
 
 

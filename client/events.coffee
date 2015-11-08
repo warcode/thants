@@ -1,14 +1,3 @@
-UpdateTitleMessage = ->
-	return
-
-UpdateFavicon = (url)->
-	link = document.createElement('link')
-	link.type = 'image/x-icon'
-	link.rel = 'shortcut icon'
-	link.href = url
-	document.getElementsByTagName('head')[0].appendChild(link)
-	$('*[type="image/x-icon"]:not(:last-child)').remove()
-
 SendNotification = (msg) ->
 	console.log("what")
 	if Notification.permission != 'granted'
@@ -171,37 +160,15 @@ Template.message.onRendered ->
 		if (firefox.scrollTop() >= trueHeight)
 			firefox.scrollTop(9999999999)
 
-	UpdateTitleMessage()
-
 
 UnreadCount = 0
 
 Template.body.onRendered ->
 	$(window).bind 'blur', ->
-		#console.log("binding UpdateTitleMessage")
-		Fav = this.UpdateFavicon
-		UpdateTitleMessage = ->
-			#console.log("updating title message")
-			UpdateFavicon("/thants_newmessages.png?v=2")
-			UnreadCount++
-			chan = Session.get('channel')
-			titleString = chan + ' (' + UnreadCount + ')'
-			Session.set 'title', titleString
-			#console.log(Session.get 'title')
-			return
 		return
 
 	$(window).bind 'focus', ->
 		Meteor.call 'readChannel', Session.get 'channel'
-		#console.log("unbinding UpdateTitleMessage")
-		UpdateFavicon("/thants.png?v=2")
-		UnreadCount = 0
-		Session.set 'title', Session.get 'channel'
-		UpdateTitleMessage = ->
-			UnreadCount = 0
-			#console.log("no title message update")
-			return
-
 		return
 
 ##FIREFOX
