@@ -92,6 +92,8 @@ Template.message.helpers
 		content = content.replace /\s[@][a-zA-Z0-9]{1,}\s/g , (match) ->
 			match.replace '@', ''
 
+		content = content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+
 		if content[0] is ">"
 			content = "<span class=\"quote\">#{content}</span>"
 		else
