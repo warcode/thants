@@ -522,3 +522,21 @@ body {
     background: #4183C4;
     text-decoration: none;
 }
+
+.message-container::-webkit-scrollbar {
+    width: 14px;
+}
+
+.message-container::-webkit-scrollbar-thumb {
+    background-color: #1e2124;
+    background-clip: padding-box;
+    border: 3px solid #36393e;
+    border-radius: 2px;
+}
+
+.message-container::-webkit-scrollbar-track-piece {
+    background-color: #2e3136;
+    background-clip: padding-box;
+    border: 3px solid #36393e;
+    border-radius: 2px;
+}
