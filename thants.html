@@ -120,7 +120,7 @@
 <template name="header">
     <div class="header">
     {{#if inChannel}}
-        <span>#{{channelName}}</span><span>&nbsp;[{{channelCurrent}}/{{channelCount}}]</span><span> &nbsp; {{channelTopic}}</span><span> &nbsp; {{channelWho}}</span>
+        <span class="header-channel">#{{channelName}}</span><span class="header-count">&nbsp;[{{channelCurrent}}/{{channelCount}}]</span><span class="header-topic"> &nbsp; {{channelTopic}}</span>
     {{/if}}
     </div>
 </template>

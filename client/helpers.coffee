@@ -40,10 +40,17 @@ Template.main_phone.helpers
 			return
 
 		'swipeleft .message-container, swiperight .message-container': (event, templateInstance) ->
+			console.log(event.direction)
 			if event.direction is 2
-				$('.menuleft').hide()
+				if $('.menuleft').css('display') is 'none'
+					$('.menuright').show()
+				else
+					$('.menuleft').hide()
 			if event.direction is 4
-				$('.menuleft').show()
+				if $('.menuright').css('display') is 'none'
+					$('.menuleft').show()
+				else
+					$('.menuright').hide()
 
 			console.log(event.direction)
 			console.log("swiping leftright")
