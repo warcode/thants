@@ -30,18 +30,35 @@ Template.body.helpers
 			return true
 		return false
 
+Template.main_phone.helpers 
+	mainGestures:
+		'panup .message-container, pandown .message-container, swipeup .message-container, swipedown .message-container': (event, templateInstance) ->
+			if event.direction is 8
+				document.getElementById('message-container').scrollTop = document.getElementById('message-container').scrollTop + (event.distance * 0.1)
+			if event.direction is 16
+				document.getElementById('message-container').scrollTop = document.getElementById('message-container').scrollTop - (event.distance * 0.1)
+			return
 
-Template.header.helpers
-  inChannel: -> 
-  	channel = Session.get 'channel'
+		'swipeleft .message-container, swiperight .message-container': (event, templateInstance) ->
+			if event.direction is 2
+				$('.menuleft').hide()
+			if event.direction is 4
+				$('.menuleft').show()
 
-  	if channel is "LOBBY"
-  		return false
+			console.log(event.direction)
+			console.log("swiping leftright")
+			return
 
-  	return true
+	configureHammer: ->
+		(hammer, templateInstance) ->
+			hammer.set({ preventDefault: true })
+			twoFingerSwipe = new (Hammer.Swipe)(
+				event: '2fingerswipe'
+				pointers: 2
+				velocity: 0.5)
+			hammer.add twoFingerSwipe
+			hammer
 
-  channelName: ->
-  	Session.get 'channel'
 
 
 Template.messages.helpers
@@ -135,6 +152,17 @@ Template.message.helpers
 		return content
 
 Template.header.helpers
+	inChannel: ->
+		channel = Session.get 'channel'
+
+		if channel is "LOBBY"
+			return false
+
+		return true
+
+	channelName: ->
+		Session.get 'channel'
+
 	channelTopic: ->
 		channel = Session.get 'channel'
 		instance = Channels.findOne({_id : channel})

@@ -1,3 +1,5 @@
+slideout = {}
+
 SendNotification = (msg) ->
 	console.log("what")
 	if Notification.permission != 'granted'
@@ -127,6 +129,11 @@ Template.avatarupload.events
   				return
 			reader.readAsDataURL(file)
 			Session.set 'uploadingavatar', ""
+
+
+Template.main_phone.onRendered ->
+	if Meteor.Device.isTablet() or Meteor.Device.isPhone()
+		console.log("is phone: yes")
 
 
 Template.message.onRendered ->

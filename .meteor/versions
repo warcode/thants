@@ -15,6 +15,7 @@ caching-html-compiler@1.0.1
 callback-hook@1.0.4
 cfs:http-methods@0.0.30
 check@1.0.6
+chriswessels:hammer@4.0.2
 coffeescript@1.0.9
 cosmos:browserify@0.5.1
 dandv:caret-position@2.1.1
@@ -68,6 +69,7 @@ momentjs:moment@2.10.6
 mongo@1.1.1
 mongo-id@1.0.1
 mrt:nprogress@0.2.0
+mystor:device-detection@0.2.0
 nimble:restivus@0.8.4
 npm-bcrypt@0.7.8_2
 npm-mongo@1.4.39_1

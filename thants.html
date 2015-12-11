@@ -1,15 +1,22 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta name="HandheldFriendly" content="True">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link type="image/x-icon" rel="shortcut icon" href="/thants.png?v=2">
     <title>thants</title>
 </head>
 
 <body>
+	{{> deviceRender 'main'}}
+</body>
+
+
+<template name="main">
     {{#if currentUser}}
     <div class="main">
         {{> menuleft}}
-        <div class="content">
+        <div id="content" class="content">
             {{> status}}
             {{#if partyTime}}
                 {{> party}}
@@ -30,8 +37,37 @@
     {{#unless currentUser}}
         {{> loginscreen}}
     {{/unless}}
-</body>
+</template>
 
+<template name="main_phone">
+    {{#if currentUser}}
+    {{#HammerTouchArea configureCallback=configureHammer gestureMap=mainGestures}}
+    <div class="main phone-mode gesture-enabled-html">
+        {{> menuleft}}
+        <div id="content" class="content">
+            {{> status}}
+            {{#if partyTime}}
+                {{> party}}
+            {{/if}}
+            {{#if managingUsers}}
+                {{> usermanager}}
+            {{/if}}
+            {{#if uploadingAvatar}}
+                {{> avatarupload}}
+            {{/if}}
+            {{> header}}
+            {{> messages}}
+            {{> inputarea}}
+        </div>
+        {{> menuright}}
+    </div>
+    {{/HammerTouchArea}}
+    {{/if}}
+    {{#unless currentUser}}
+        {{> loginscreen}}
+    {{/unless}}
+
+</template>
 
 <template name="loginscreen">
     <div class="loginscreen">
@@ -66,7 +102,7 @@
 </template>
 
 <template name="menuleft">
-    <div class="menuleft">
+    <div id="menuleft" class="menuleft">
         {{#each channelList}}
             <div class="{{activeChannel}} {{unreadChannel}}" data-channel="{{this}}">#{{this}}</div>
         {{/each}}
@@ -90,7 +126,7 @@
 </template>
 
 <template name="messages">
-    <div class="message-container">
+    <div id="message-container" class="message-container">
         {{#each channelMessages}}
             {{> message}}
         {{/each}}
