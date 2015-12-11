@@ -524,6 +524,34 @@ body {
 	display: none !important;
 }
 
+.embed-picture {
+	max-width:60vw; 
+	max-height:50vh; 
+	width: auto; 
+	height: auto; 
+	padding-top: 5px;
+}
+
+.embed-imgur {
+	max-width:60vw; 
+	max-height:50vh; 
+	width: auto; 
+	height: auto; 
+	padding-top: 5px;
+}
+
+.embed-webm {
+	max-width:70vw; 
+	max-height:50vh; 
+	width: auto; 
+	height: auto; 
+	padding-top: 5px;
+}
+
+.phone-mode .embed-webm {
+	display: none;
+}
+
 .embed-gif img {
 	max-width:60vw;
 	max-height:50vh;
@@ -613,3 +641,4 @@ body {
 .slideout-open .slideout-menu {
   display: block;
 }
+
