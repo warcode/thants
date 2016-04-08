@@ -297,10 +297,12 @@ Meteor.methods
 			throw new Meteor.Error('invalid-user', "[methods] sendMessage -> Invalid user")
 			return false
 
-		if Meteor.user().admin
-			passwordUser = Meteor.users.findOne({ username: targetUser },{ fields: {_id: 1 } })
-			passwordUserId = passwordUser._id
+		passwordUser = Meteor.users.findOne({ username: targetUser },{ fields: {_id: 1 } })
+		passwordUserId = passwordUser._id
+
+		if Meteor.user().admin or Meteor.userId() is passwordUserId
 			Accounts.setPassword(passwordUserId, newPassword, {logout: true})
+			return true
 		else
 			return false
 
