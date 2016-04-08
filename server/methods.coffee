@@ -291,6 +291,19 @@ Meteor.methods
 		else
 			return false
 
+	commandSetPassword: (targetUser, newPassword) ->
+		console.log("trying to set password")
+		if not Meteor.userId()
+			throw new Meteor.Error('invalid-user', "[methods] sendMessage -> Invalid user")
+			return false
+
+		if Meteor.user().admin
+			passwordUser = Meteor.users.findOne({ username: targetUser },{ fields: {_id: 1 } })
+			passwordUserId = passwordUser._id
+			Accounts.setPassword(passwordUserId, newPassword, {logout: true})
+		else
+			return false
+
 	readChannel: (channel) ->
 		#console.log("read channel: " + channel)
 		now = new Date()

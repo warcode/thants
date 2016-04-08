@@ -209,6 +209,17 @@
 							title: 'ERROR' 
 							text: 'Could not nuke channel'
 
+			if command is "setpassword"
+				splitparams = param.split(' ')
+				usertochange = splitparams[0]
+				newpassword = splitparams[1]
+				Meteor.call 'commandSetPassword', usertochange, newpassword, (err, changed) ->
+					if not changed
+						swal
+							title: 'ERROR'
+							text: 'Could not change password for user'
+
+
 
 
 	send = (message) ->
