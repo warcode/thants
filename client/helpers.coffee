@@ -303,3 +303,8 @@ Template.inputarea.helpers
 		}
 	textAreaInit: ->
 		return ""
+
+	textAreaEditActive: ->
+		if editing
+			return "input-edit"
+		return ""

@@ -485,6 +485,10 @@ body {
 	padding-left: 8px;
 }
 
+.input-message .input-edit {
+	background-color: #ef9a9a;
+}
+
 .time {
 	font-size: 80%;
 }
