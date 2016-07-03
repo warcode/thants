@@ -485,7 +485,7 @@ body {
 	padding-left: 8px;
 }
 
-.input-message .input-edit {
+.input-message.input-edit {
 	background-color: #ef9a9a;
 }
 
