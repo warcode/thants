@@ -1,4 +1,6 @@
 slideout = {}
+editing = false
+editId = null;
 
 SendNotification = (msg) ->
 	console.log("what")
@@ -44,7 +46,15 @@ Template.inputarea.events
 		InputHandler.newInput input, channel, messageText
 
 	'keydown .inputarea textarea': (event) ->
-		if event.which is 13 and not event.shiftKey
+		if event.which is 27 #esc
+			event.preventDefault()
+			event.stopPropagation()
+
+			editing = false
+			input = $(event.currentTarget)
+			input.val('')
+
+		if event.which is 13 and not event.shiftKey #enter
 			event.preventDefault()
 			event.stopPropagation()
 			
@@ -52,7 +62,42 @@ Template.inputarea.events
 			channel = Session.get 'channel'
 			messageText = input.val()
 			
-			InputHandler.newInput input, channel, messageText
+			if editing is true
+				InputHandler.newEdit editId, input, channel, messageText
+				editing = false
+				editId = null
+			else	
+				InputHandler.newInput input, channel, messageText
+
+		if event.which is 38 and event.shiftKey #arrow up
+			event.preventDefault()
+			event.stopPropagation()
+
+			editing = true
+
+			input = $(event.currentTarget)
+			channel = Session.get 'channel'
+			userid = Meteor.userId()
+			message = Messages.findOne({channel: channel, userId: userid}, {sort: [["time", "desc"]]})
+			editId = message._id
+
+			decrypted = ""
+			content = message.text
+			if message.encrypted?
+				if message.encrypted is true
+					decrypted = ""
+					currentSecret = localStorage.getItem("thants.#{channel}.encryption")
+				if currentSecret?
+					decrypted = CryptoJS.AES.decrypt(message.text, currentSecret).toString(CryptoJS.enc.Utf8)
+
+				if decrypted is ""
+					content = "***"
+				else
+					content = decrypted
+
+			input.val(content)
+
+
 
 Template.menuleft.events
 	'click .menuleft .channel': (event) ->

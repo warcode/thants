@@ -55,6 +55,47 @@
 
 		input.val('')
 
+	newEdit = (id, input, channel, msg) ->
+		if msg is ""
+			input.val('')
+			return
+
+		if msg[0] is '/'
+			input.val('')
+			return
+
+		msg = DOMPurify.sanitize(msg, {ALLOWED_TAGS: []})
+		msg = sanityCheck(msg)
+
+		message = Messages.findOne({_id: id})
+		message.text = msg
+
+		urls = msg.match /([A-Za-z]{3,9}):(\/\/|\?)([-;:&=\+\$,\w]+@{1})?([-A-Za-z0-9\.]+)+:?(\d+)?((\/[-\+=!:~%\/\.@\,\w]+)?\??([-\+=&!:;%@\/\.\,\w]+)?#?([\w\/\?=]+)?)?/g
+
+		if urls?
+			message.urls = urls.map (url) -> url: url
+
+		channelInstance = Channels.findOne({_id: channel})
+		if channelInstance.encryptedKey is ""
+			edit(message)
+		else
+			console.log("channel is using encryption")
+			currentSecret = localStorage.getItem("thants.#{channel}.encryption")
+			if not currentSecret?
+				input.val('')
+				return
+			message.encrypted = true
+			message.text = CryptoJS.AES.encrypt(message.text, currentSecret).toString()
+			console.log("encrpyted input message")
+
+			if message.urls?
+				for urls in message.urls
+					urls.url = CryptoJS.AES.encrypt(urls.url, currentSecret).toString()
+				console.log("encrypted input urls")
+			edit(message)
+
+		input.val('')
+
 	slashCommand = (msg, channel) ->
 		match = msg.match(/^\/([^\s]+)(?:\s+(.*))?$/m)
 		if(match?)
@@ -227,6 +268,12 @@
 		Meteor.call 'sendMessage', message
 		Meteor.call 'readChannel', Session.get 'channel'
 
+	edit = (message) ->
+		Meteor.call 'editMessage', message
+		Meteor.call 'readChannel', Session.get 'channel'
+
 	newInput: newInput
+	newEdit: newEdit
 	send: send
+	edit: edit
 )()

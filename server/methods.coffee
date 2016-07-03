@@ -48,7 +48,10 @@ Meteor.methods
 		if not Meteor.userId()
 			throw new Meteor.Error('invalid-user', "invalid user")
 
-		user = Meteor.users.findOne Meteor.userId(), fields: username: 1
+		if not message.userId is Meteor.userId()
+			throw new Meteor.Error('invalid-user', "invalid user")
+
+		#user = Meteor.users.findOne Meteor.userId(), fields: username: 1
 
 		internalChannelId = message.channel.toLowerCase()
 		userId = Meteor.userId()
@@ -56,14 +59,10 @@ Meteor.methods
 		permissionCheck = Channels.findOne({ _id : internalChannelId, members : userId })
 
 		if permissionCheck?
+			existing = Messages.findOne({_id: message._id})
 			now = new Date()
-			Messages.insert
-				userId : Meteor.userId()
-				user: user.username
-				channel: message.channel
-				text: message.text
-				urls: message.urls
-				time: now
+			Messages.update({_id: message._id}, {$set: {text: message.text, urls: message.urls, edited: now}})
+
 
 	commandJoin: (channel, password, encryptedK) ->
 		console.log("trying to join channel " + channel + " using password " + password)
