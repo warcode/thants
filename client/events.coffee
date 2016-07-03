@@ -86,12 +86,14 @@ Template.inputarea.events
 			if message.encrypted?
 				if message.encrypted is true
 					decrypted = ""
-					currentSecret = localStorage.getItem("thants.#{channel}.encryption")
+					currentSecret = localStorage.getItem("thants." + channel + ".encryption")
 				if currentSecret?
 					decrypted = CryptoJS.AES.decrypt(message.text, currentSecret).toString(CryptoJS.enc.Utf8)
 
 				if decrypted is ""
 					content = "***"
+					editing = false
+					editId = null
 				else
 					content = decrypted
 
