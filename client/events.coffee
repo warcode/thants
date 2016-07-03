@@ -52,6 +52,7 @@ Template.inputarea.events
 
 			editing = false
 			input = $(event.currentTarget)
+			input.toggleClass('input-edit')
 			input.val('')
 
 		if event.which is 13 and not event.shiftKey #enter
@@ -66,6 +67,7 @@ Template.inputarea.events
 				InputHandler.newEdit editId, input, channel, messageText
 				editing = false
 				editId = null
+				input.toggleClass('input-edit')
 			else	
 				InputHandler.newInput input, channel, messageText
 
@@ -96,7 +98,8 @@ Template.inputarea.events
 						editId = null
 					else
 						content = decrypted
-
+						
+			input.toggleClass('input-edit')
 			input.val(content)
 
 
