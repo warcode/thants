@@ -306,5 +306,5 @@ Template.inputarea.helpers
 
 	textAreaEditActive: ->
 		if editing
-			return "input-edit"
-		return ""
+			return "input-message input-edit"
+		return "input-message"
