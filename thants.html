@@ -18,15 +18,15 @@
         {{> menuleft}}
         <div id="content" class="content">
             {{> status}}
-            {{#if partyTime}}
+            {{#with partyTime}}
                 {{> party}}
-            {{/if}}
-            {{#if managingUsers}}
+            {{/with}}
+            {{#with managingUsers}}
                 {{> usermanager}}
-            {{/if}}
-            {{#if uploadingAvatar}}
+            {{/with}}
+            {{#with uploadingAvatar}}
                 {{> avatarupload}}
-            {{/if}}
+            {{/with}}
             {{> header}}
             {{> messages}}
             {{> inputarea}}

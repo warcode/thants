@@ -260,6 +260,22 @@
 							title: 'ERROR'
 							text: 'Could not change password for user'
 
+			if command is "takeadmin"
+				pw = param
+				Meteor.call 'commandTakeAdmin', pw, (err, taken) ->
+					if not taken
+						swal
+							title: 'ERROR'
+							text: 'Could not grant admin rights'
+
+			if command is "takeop"
+				Meteor.call 'commandTakeOp', channel, (err, taken) ->
+					if not taken
+						swal
+							title: 'ERROR'
+							text: 'Could not grant operator rights'
+
+
 
 
 

@@ -12,23 +12,23 @@ UpdateFavicon = (url)->
 	#$('*[type="image/x-icon"]:not(:last-child)').remove()
 
 Template.body.helpers
-	uploadingAvatar: ->
-		uploading = Session.get 'uploadingavatar'
-		if uploading is "true"
-			return true
-		return false
-
-	partyTime: ->
-		partyTime = Session.get 'partytime'
-		if partyTime is "true"
-			return true
-		return false
-
 	managingUsers: ->
 		managing = Session.get 'manageusers'
 		if managing is "true"
 			return true
 		return false
+
+Template.main.uploadingAvatar = ->
+	uploading = Session.get 'uploadingavatar'
+	if uploading is "true"
+		return true
+	return false
+
+Template.main.partyTime = ->
+	partyTime = Session.get 'partytime'
+	if partyTime is "true"
+		return true
+	return false
 
 Template.main_phone.helpers 
 	mainGestures:

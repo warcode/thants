@@ -305,6 +305,34 @@ Meteor.methods
 		else
 			return false
 
+	commandTakeAdmin: (password) ->
+		console.log("trying to take admin")
+		if not Meteor.userId()
+			throw new Meteor.Error('invalid-user', "[methods] sendMessage -> Invalid user")
+			return false
+
+		if Meteor.settings.admin.password is password
+			Meteor.user().admin = true
+			return true
+		else
+			return false
+
+	commandTakeOp: (channel) ->
+		console.log("trying to take op")
+		if not Meteor.userId()
+			throw new Meteor.Error('invalid-user', "[methods] sendMessage -> Invalid user")
+			return false
+
+		if Meteor.user().admin
+			userIdToOp = Meteor.userId()
+			alreadyOp = Channels.findOne({ _id : channel, operators : userIdToOp })
+			if not alreadyOp?
+				Channels.update({_id: channel}, { $push: { operators: userIdToOp } })
+				return true
+
+		return false
+
+
 	readChannel: (channel) ->
 		#console.log("read channel: " + channel)
 		now = new Date()
