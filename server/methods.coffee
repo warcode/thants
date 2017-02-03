@@ -332,6 +332,23 @@ Meteor.methods
 
 		return false
 
+	commandDecrypt: (channel, password) ->
+		if not Meteor.userId()
+			throw new Meteor.Error('invalid-user', "[methods] sendMessage -> Invalid user")
+			return false
+
+		userId = Meteor.userId()
+		alreadyInChannel = Channels.findOne({ _id : channel, members : this.userId })
+
+		if alreadyInChannel?
+			if bcrypt.compareSync(password, alreadyInChannel.passwordHash)
+				key = alreadyInChannel.encryptedKey
+				return key
+				
+		return false
+
+
+
 
 	readChannel: (channel) ->
 		#console.log("read channel: " + channel)
