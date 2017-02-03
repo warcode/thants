@@ -136,9 +136,9 @@
 						if joined is true
 							FlowRouter.go('/chan/' + channelToJoin)
 						else
-							console.log("got encryption key from server" + joined)
+							#console.log("got encryption key from server" + joined)
 							key = CryptoJS.AES.decrypt(joined, password).toString(CryptoJS.enc.Utf8)
-							console.log("setting encryption key to " + key)
+							#console.log("setting encryption key to " + key)
 							localStorage.setItem("thants.#{channelToJoin}.encryption", key)
 							FlowRouter.go('/chan/' + channelToJoin)
 
@@ -274,6 +274,19 @@
 						swal
 							title: 'ERROR'
 							text: 'Could not grant operator rights'
+
+			if command is "decrypt"
+				pw = param
+				Meteor.call 'commandDecrypt', channel, pw, (err, done) ->
+					if done
+						key = CryptoJS.AES.decrypt(done, pw).toString(CryptoJS.enc.Utf8)
+						localStorage.setItem("thants.#{channel}.encryption", key)
+						location.reload()
+						#FlowRouter.go('/chan/' + channel)
+					if not done
+						swal
+							title: 'ERROR'
+							text: 'Could not decrypt'
 
 
 

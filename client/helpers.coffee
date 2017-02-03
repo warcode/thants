@@ -1,8 +1,8 @@
 UnreadCount = 0
 
 UpdateFavicon = (url)->
-	console.log("updating favicon")
-	console.log(url)
+	#console.log("updating favicon")
+	#console.log(url)
 	link = document.createElement('link')
 	link.type = 'image/x-icon'
 	link.rel = 'shortcut icon'
@@ -106,6 +106,8 @@ Template.message.helpers
 				currentSecret = localStorage.getItem("thants.#{this.channel}.encryption")
 				if currentSecret?
 					decrypted = CryptoJS.AES.decrypt(this.text, currentSecret).toString(CryptoJS.enc.Utf8)
+					#decrypted = await crypto.subtle.decrypt({name: "AES-CBC"}, currentSecret, this.text).toString()
+
 
 				if decrypted is ""
 					content = "***"
