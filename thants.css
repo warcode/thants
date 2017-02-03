@@ -297,10 +297,10 @@ body {
   	-webkit-box-orient: vertical;
   	-webkit-box-direction: reverse;
   	-webkit-flex-direction: column-reverse;
-  	    -ms-flex-direction: column-reverse;
-  	        flex-direction: column-reverse;
+        -ms-flex-direction: column-reverse;
+        flex-direction: column-reverse;
   	overflow-y: auto;
-	height: 89vh;
+	height: 90vh;
 	padding-top: 1vh;
 	padding-left: 1vw;
 	padding-right: 1vw;
@@ -439,8 +439,8 @@ body {
 
 
 .inputarea {
-	height: 6vh;
- 	padding: 10px 20px 0px 20px;
+    height: 5vh;
+    padding: 10px 20px 0px 20px;
     border-top: 1px solid #eaeaea;
     z-index: 100;
     display: -webkit-box;
@@ -450,12 +450,12 @@ body {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -webkit-flex-direction: row;
-        -ms-flex-direction: row;
-            flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
     -webkit-box-align: center;
     -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+     align-items: center;
 }
 
 .phone-mode .inputarea {
@@ -463,7 +463,7 @@ body {
 }
 
 .inputarea textarea {
-	display: block;
+    display: block;
     padding-top: 9px;
     padding-bottom: 9px;
     padding-right: 38px;
@@ -477,6 +477,7 @@ body {
     box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
     position: relative;
     width: 95vw;
+    height: 3vh;
     outline: none;
     font-family: Lato, sans-serif;
 }
