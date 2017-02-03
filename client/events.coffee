@@ -121,7 +121,11 @@ Template.login.events
 	'click .login .loginButton': (event) ->
 		username = $(event.target).siblings('#loginUsername').val()
 		password = $(event.target).siblings('#loginPassword').val()
-		Meteor.loginWithPassword username, password
+		Meteor.loginWithPassword username, password, (result) ->
+				if result
+					swal
+						title: 'ERROR'
+						text: 'Could not log in. Wrong password?'
 
 	'keydown .login #loginPassword': (event) ->
 		if event.which is 13 and not event.shiftKey
@@ -129,7 +133,12 @@ Template.login.events
 			event.stopPropagation()
 			username = $(event.target).siblings('#loginUsername').val()
 			password = $(event.target).val()
-			Meteor.loginWithPassword username, password
+			Meteor.loginWithPassword username, password, (result) ->
+				if result
+					swal
+						title: 'ERROR'
+						text: 'Could not log in. Wrong password?'
+
 
 
 
