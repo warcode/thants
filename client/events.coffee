@@ -222,9 +222,19 @@ Template.message.onRendered ->
 
 	firefox = $('.message-container.firefox-plz')
 	if firefox.length is 1
-		trueHeight = firefox[0].scrollHeight - firefox.height() - $(element).height() - 30
+		trueHeight = firefox[0].scrollHeight - firefox.height() - $(element).height() - 50
 		if (firefox.scrollTop() >= trueHeight)
 			firefox.scrollTop(9999999999)
+
+Template.message.events
+	'load img': (event, template) ->
+		element = template.find('.message')
+		firefox = $('.message-container.firefox-plz')
+		if firefox.length is 1
+			trueHeight = firefox[0].scrollHeight - firefox.height() - $(element).height() - 50
+			if (firefox.scrollTop() >= trueHeight)
+				firefox.scrollTop(9999999999)
+		return
 
 
 UnreadCount = 0
