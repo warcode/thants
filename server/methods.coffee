@@ -85,12 +85,12 @@ Meteor.methods
 			return true
 
 		if existing?
-			console.log("existing")
+			#console.log("existing")
 			#check if we are allowed in by checking the locked + password
 			if not existing.isLocked
-				console.log("not locked")
+				#console.log("not locked")
 				if existing.passwordHash is ""
-					console.log("no password exists")
+					#console.log("no password exists")
 					now = new Date()
 					Meteor.users.update({_id: userId}, {$push: { 'profile.channels' : internalChannelId }})
 					Channels.update({_id: internalChannelId}, { $push: { members: userId, who: username } })
@@ -100,7 +100,7 @@ Meteor.methods
 					return false
 
 				if bcrypt.compareSync(password, existing.passwordHash)
-					console.log("correct password")
+					#console.log("correct password")
 					now = new Date()
 					Meteor.users.update({_id: userId}, {$push: { 'profile.channels' : internalChannelId }})
 					Channels.update({_id: internalChannelId}, { $push: { members: userId, who: username } })
@@ -110,7 +110,7 @@ Meteor.methods
 			return false
 
 		if not existing? 
-			console.log("channel does not exist, creating it: " + channel + " with password: " + password)
+			#console.log("channel does not exist, creating it: " + channel + " with password: " + password)
 
 			hash = ""
 			encryptedKey = ""
@@ -347,7 +347,17 @@ Meteor.methods
 				
 		return false
 
+	commandParty: (channel, source) ->
+		if not Meteor.userId()
+			throw new Meteor.Error('invalid-user', "[methods] sendMessage -> Invalid user")
 
+		internalChannelId = channel.toLowerCase()
+		allowedToParty = Channels.findOne({ _id : internalChannelId, members : this.userId, operators: this.userId })
+
+		if allowedToParty?
+			Channels.update({_id: internalChannelId}, { $set: { party: source} })
+			return true
+		return false
 
 
 	readChannel: (channel) ->

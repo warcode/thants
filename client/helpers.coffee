@@ -25,17 +25,19 @@ Template.main.helpers
 		return false
 
 	partyTime: ->
-		partyTime = Session.get 'partytime'
-		if partyTime is "true"
+		channel = Session.get 'channel'
+		instance = Channels.findOne({_id : channel})
+		if instance?
+			if instance.party is ""
+				return false
 			return true
-		return false
 
 Template.party.helpers
 	partySource: ->
-		source = Session.get 'partySource'
-		if source is ""
-			return
-		return source
+		channel = Session.get 'channel'
+		instance = Channels.findOne({_id : channel})
+		if instance?
+			instance.party
 
 Template.main_phone.helpers 
 	mainGestures:

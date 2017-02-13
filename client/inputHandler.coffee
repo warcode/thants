@@ -216,11 +216,17 @@
 
 			if command is "party"
 				source = param
-				Session.set 'partySource', source
-				Session.set 'partytime', "true"
+				Meteor.call 'commandParty', channel, source, (err, set) ->
+					if not set
+						swal
+							title: 'ERROR' 
+							text: 'NOT OLD ENOUGH TO PARTY' + user
+				
 
 			if command is "partyoff"
-				Session.set 'partytime', ""
+				Meteor.call 'commandParty', channel, "", (err, set) ->
+					if not set
+						return
 
 			if command is "help" or command is "?"
 				swal
