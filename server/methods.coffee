@@ -65,7 +65,7 @@ Meteor.methods
 
 
 	commandJoin: (channel, password, encryptedK) ->
-		console.log("trying to join channel " + channel + " using password " + password)
+		#console.log("trying to join channel " + channel + " using password " + password)
 
 		if not Meteor.userId()
 			throw new Meteor.Error('invalid-user', "[methods] sendMessage -> Invalid user")
