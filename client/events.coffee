@@ -17,9 +17,6 @@ Template.messages.onCreated ->
   instance.autorun ->
   	instance.subscribe('messages', Session.get('channel'))
 
-#Template.header.onCreated ->
-#	instance = this
-#	instance.autorun ->
 		
 Template.menuleft.onCreated ->
 	instance = this
@@ -228,6 +225,14 @@ Template.message.onRendered ->
 
 Template.message.events
 	'load img': (event, template) ->
+		element = template.find('.message')
+		firefox = $('.message-container.firefox-plz')
+		if firefox.length is 1
+			trueHeight = firefox[0].scrollHeight - firefox.height() - $(element).height() - 50
+			if (firefox.scrollTop() >= trueHeight)
+				firefox.scrollTop(9999999999)
+		return
+	'load video': (event, template) ->
 		element = template.find('.message')
 		firefox = $('.message-container.firefox-plz')
 		if firefox.length is 1

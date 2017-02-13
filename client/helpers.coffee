@@ -11,24 +11,31 @@ UpdateFavicon = (url)->
 	document.getElementsByTagName('head')[0].appendChild(link)
 	#$('*[type="image/x-icon"]:not(:last-child)').remove()
 
-Template.body.helpers
+Template.main.helpers
 	managingUsers: ->
 		managing = Session.get 'manageusers'
 		if managing is "true"
 			return true
 		return false
 
-Template.main.uploadingAvatar = ->
-	uploading = Session.get 'uploadingavatar'
-	if uploading is "true"
-		return true
-	return false
+	uploadingAvatar: ->
+		uploading = Session.get 'uploadingavatar'
+		if uploading is "true"
+			return true
+		return false
 
-Template.main.partyTime = ->
-	partyTime = Session.get 'partytime'
-	if partyTime is "true"
-		return true
-	return false
+	partyTime: ->
+		partyTime = Session.get 'partytime'
+		if partyTime is "true"
+			return true
+		return false
+
+Template.party.helpers
+	partySource: ->
+		source = Session.get 'partySource'
+		if source is ""
+			return
+		return source
 
 Template.main_phone.helpers 
 	mainGestures:
@@ -187,20 +194,11 @@ Template.header.helpers
 
 	channelCount: ->
 		channel = Session.get 'channel'
+		if channel is "library"
+			return "?"
 		instance = Channels.findOne({_id : channel})
 		if instance?
 			instance.members.length
-
-	channelWho: ->
-		return ""
-		channel = Session.get 'channel'
-		if channel is "library"
-			return ""
-		instance = Channels.findOne({_id : channel})
-		if instance? and instance.who?
-			online = Meteor.users.find({'status.online': true, username: { $in: instance.who } })
-			#online = Meteor.users.find({'status.online': true, 'status.idle': false, username: { $in: instance.who } })
-			return (x.username for x in online.fetch()).join(', ')
 
 Template.loginscreen.helpers
 	registering: ->
@@ -221,9 +219,11 @@ Template.menuleft.helpers
 
 	unreadChannel: ->
 		current = this.toString()
-		#if current is Session.get 'channel'
-		#	return ""
+		if current is "library"
+			return ""
+		
 		channel = Channels.findOne({_id : current})
+		
 		read = Unread.findOne({ channel : current})
 		chan = Session.get('channel')
 		if !read?

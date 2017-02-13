@@ -215,6 +215,8 @@
 							text: 'Could not change topic in ' + channel
 
 			if command is "party"
+				source = param
+				Session.set 'partySource', source
 				Session.set 'partytime', "true"
 
 			if command is "partyoff"
