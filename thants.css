@@ -528,6 +528,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	flex-basis: 60vh;
+	overflow: auto;
 }
 
 /*FIREFOX*/

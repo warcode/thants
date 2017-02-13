@@ -228,6 +228,9 @@
 					if not set
 						return
 
+			if command is "partymute"
+				Session.set('partymute', param)
+
 			if command is "help" or command is "?"
 				swal
 					title: 'Commands' 

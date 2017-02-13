@@ -25,6 +25,9 @@ Template.main.helpers
 		return false
 
 	partyTime: ->
+		mute = Session.get 'partymute'
+		if mute is 'on'
+			return false
 		channel = Session.get 'channel'
 		instance = Channels.findOne({_id : channel})
 		if instance?
